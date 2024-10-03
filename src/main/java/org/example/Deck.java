@@ -10,31 +10,50 @@ public class Deck {
 
 
     public Deck() {
-
+        this.deck = new ArrayList<>();
+        this.discard = new ArrayList<>();
     }
 
     public void addCard(Card card) {
-
+        deck.add(card);
     }
 
     public List<Card> getDeckCards(){
-        return null;
+        return this.deck;
     }
 
     public List<Card> getDiscardCards(){
+        return this.discard;
+    }
+
+    public Card getDeckCard(int i){
+        if(i >= 0 && i < this.getDeckSize()){
+            return deck.get(i);
+        }
         return null;
     }
 
-
     public void shuffle() {
-
+        List<Card> originalDeck = new ArrayList<>(deck);
+        for(int i=0;i<3;i++){
+            Collections.shuffle(deck);
+        }
+        while (originalDeck.equals(deck)) {
+            Collections.shuffle(deck);
+        }
     }
 
     public int getDeckSize() {
-        return 0;
+        return deck.size();
     }
 
     public int getDiscardSize() {
-        return 0;
+        return discard.size();
+    }
+
+    public void printDeck() {
+        for(int i=0;i<deck.size();i++){
+            System.out.println(this.getDeckCard(i).toString());
+        }
     }
 }
