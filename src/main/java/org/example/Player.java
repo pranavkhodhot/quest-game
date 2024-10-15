@@ -18,6 +18,10 @@ public class Player {
         return hand;
     }
 
+    public int getId() {
+        return -1;
+    }
+
     public void addCard(Card card) {
         if (card.getCardType() == Card.CardType.FOE) {
             hand.add(0, card);

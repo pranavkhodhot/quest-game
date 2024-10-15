@@ -177,4 +177,24 @@ public class MainTest {
         game.dealAdventureCards(1,1);
         assertEquals(99, game.getAdventureDeck().getDeckSize());
     }
+    /*------------------------------------RESP-3-----------------------------------------------------------------*/
+    @Test
+    @DisplayName("Check Each Player Plays their Turn In Order of P1-P4 back to P1")
+    public void RESP_03_test_01() {
+        Game game = new Game();
+        game.setCurrPlayer(game.getNextPlayer(game.getCounter()));
+        assertEquals(1,game.getCurrPlayer().getId());
+        game.setCounter(game.getCounter()+1);
+        game.setCurrPlayer(game.getNextPlayer(game.getCounter()));
+        assertEquals(2,game.getCurrPlayer().getId());
+        game.setCounter(game.getCounter()+1);
+        game.setCurrPlayer(game.getNextPlayer(game.getCounter()));
+        assertEquals(3,game.getCurrPlayer().getId());
+        game.setCounter(game.getCounter()+1);
+        game.setCurrPlayer(game.getNextPlayer(game.getCounter()));
+        assertEquals(4,game.getCurrPlayer().getId());
+        game.setCounter(game.getCounter()+1);
+        game.setCurrPlayer(game.getNextPlayer(game.getCounter()));
+        assertEquals(1,game.getCurrPlayer().getId());
+    }
 }

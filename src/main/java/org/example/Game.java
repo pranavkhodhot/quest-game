@@ -7,6 +7,8 @@ public class Game {
     private Deck adventureDeck;
     private Deck eventDeck;
     private List<Player> players;
+    private Player currPlayer;
+    private int counter;
 
     public Game() {
         adventureDeck = new Deck();
@@ -49,6 +51,27 @@ public class Game {
         addCardsToDeck(eventDeck, "Queens Favor", Card.CardType.EVENT, 0, 2);  // 12 Horse cards
         addCardsToDeck(eventDeck, "Prosperity", Card.CardType.EVENT, 0, 2);  // 16 Sword cards
     }
+
+    public int getCounter() {
+        return -1;
+    }
+
+    public void setCounter(int counter) {
+
+    }
+
+    public Player getCurrPlayer() {
+        return null;
+    }
+
+    public void setCurrPlayer(Player currPlayer) {
+
+    }
+
+    public Player getNextPlayer(int turnCounter) {
+        return null;
+    }
+
 
     public void shuffleAdventureDeck() {
         adventureDeck.shuffle();
