@@ -39,6 +39,11 @@ public class Quest {
         return false;
     }
 
+    public List<Player> getParticipantsForQuest(Player sponsor) {
+        List<Player> participants = new ArrayList<>();
+        return participants;
+    }
+
     public void buildQuest() {
         int count = 0;
         game.logAndPrint("P" + sponsor.getId() + " Will Begin the Stage Building Process");

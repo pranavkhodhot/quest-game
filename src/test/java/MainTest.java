@@ -694,4 +694,55 @@ public class MainTest {
 
         assertTrue(outputs.contains("Cannot have repeated weapon card in Stage"));
     }
+    @Test
+    @DisplayName("Check each participant is prompted to participate or withdraw")
+    public void RESP_13_test_01() {
+        Game game = new Game();
+        List<Card> playerHands = new ArrayList<>();
+        Collections.addAll(playerHands,new Card(Card.CardType.FOE,"F5",5),new Card(Card.CardType.FOE,"F5",5), new Card(Card.CardType.WEAPON,"D",5), new Card(Card.CardType.WEAPON,"D",5), new Card(Card.CardType.WEAPON,"H",10));
+
+        for(int i=1;i<game.getPlayers().size();i++){
+            game.getPlayer(i+1).setHand(playerHands);
+        }
+
+        Player sponsor = game.getPlayer(1);
+        Quest currQuest = new Quest(2,sponsor,game);
+
+        ArrayList<String> commands = new ArrayList<>();
+        Collections.addAll(commands,"Yes","Yes","Yes");
+        game.setCommands(commands);
+
+        List<String> outputs = game.getOutputs();
+
+        List<Player> participants = currQuest.getParticipantsForQuest(sponsor);
+
+        assertTrue(outputs.contains("Would P2 like to participate? Yes/No"));
+        assertTrue(outputs.contains("Would P3 like to participate? Yes/No"));
+        assertTrue(outputs.contains("Would P4 like to participate? Yes/No"));
+    }
+    @Test
+    @DisplayName("Check if player who withdraws is marked as ineligible for subsequent stages.")
+    public void RESP_13_test_02() {
+        Game game = new Game();
+        List<Card> playerHands = new ArrayList<>();
+        Collections.addAll(playerHands,new Card(Card.CardType.FOE,"F5",5),new Card(Card.CardType.FOE,"F5",5), new Card(Card.CardType.WEAPON,"D",5), new Card(Card.CardType.WEAPON,"D",5), new Card(Card.CardType.WEAPON,"H",10));
+
+        for(int i=1;i<game.getPlayers().size();i++){
+            game.getPlayer(i+1).setHand(playerHands);
+        }
+
+        Player sponsor = game.getPlayer(1);
+        Quest currQuest = new Quest(2,sponsor,game);
+
+        ArrayList<String> commands = new ArrayList<>();
+        Collections.addAll(commands,"Yes","Yes","No");
+        game.setCommands(commands);
+
+        List<String> outputs = game.getOutputs();
+
+        List<Player> participants = currQuest.getParticipantsForQuest(sponsor);
+
+        assertEquals(2,participants.size());
+        assertEquals(true,game.getPlayer(4).getDeclinedToParticipate());
+    }
 }

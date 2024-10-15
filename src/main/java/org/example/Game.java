@@ -71,6 +71,10 @@ public class Game {
         }
     }
 
+    public List<Player> getPlayers() {
+        return null;
+    }
+
     public int getCounter() {
         return counter;
     }

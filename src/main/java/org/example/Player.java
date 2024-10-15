@@ -7,6 +7,8 @@ public class Player {
     private int id;
     private List<Card> hand;
     private int sheilds;
+    private boolean declinedToParticipate;
+
 
     public Player(int id){
         this.id = id;
@@ -16,6 +18,14 @@ public class Player {
 
     public void setHand(List<Card> hand) {
         this.hand = hand;
+    }
+
+    public boolean getDeclinedToParticipate(){
+        return false;
+    }
+
+    public boolean setDeclinedToParticipate(boolean res){
+        return false;
     }
 
     public List<Card> getHand() {
