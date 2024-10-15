@@ -870,5 +870,49 @@ public class MainTest {
         List<Player> successfulParticipants = quest.startQuest();
         assertTrue(successfulParticipants.isEmpty());
     }
+    @Test
+    @DisplayName("Check that the cards used by participants for an attack are discarded after each stage")
+    public void RESP_17_test_01(){
+        Game game = new Game();
+        game.dealInitialAdventureCards();
+        game.getEventDeck().addCard(new Card(Card.CardType.QUEST, "Q2", 2));
+        game.getAdventureDeck().addCard(new Card(Card.CardType.WEAPON, "S", 10));
+
+        Player sponsor = game.getPlayer(1);
+
+        Quest quest = new Quest(2, sponsor, game);
+        quest.getStageValues().add(0);
+        quest.getStageValues().add(30);
+
+        ArrayList<String> commands = new ArrayList<>();
+        Collections.addAll(commands,"Yes","No","No","1","12","Quit","Enter");
+        game.setCommands(commands);
+
+        List<Player> successfulParticipants = quest.startQuest();
+        assertEquals(2,game.getAdventureDeck().getDiscardSize());
+    }
+
+    @Test
+    @DisplayName("Check the game updates the participants hands after discarding cards")
+    public void RESP_17_test_02(){
+        Game game = new Game();
+        game.dealInitialAdventureCards();
+        game.getEventDeck().addCard(new Card(Card.CardType.QUEST, "Q2", 2));
+        game.getAdventureDeck().addCard(new Card(Card.CardType.WEAPON, "S", 10));
+
+        Player sponsor = game.getPlayer(1);
+
+        Quest quest = new Quest(2, sponsor, game);
+        quest.getStageValues().add(0);
+        quest.getStageValues().add(30);
+
+        ArrayList<String> commands = new ArrayList<>();
+        Collections.addAll(commands,"Yes","No","No","1","12","Quit","Enter");
+        game.setCommands(commands);
+
+        List<Player> successfulParticipants = quest.startQuest();
+        assertEquals(11,game.getPlayer(2).getHand().size());
+    }
+
 
 }
