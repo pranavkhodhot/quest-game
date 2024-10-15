@@ -129,6 +129,10 @@ public class Quest {
         game.clearScreen();
     }
 
+    public void handleBeginningStage(Player participant){
+
+    }
+
     public String cardBuildString(List<Card> build) {
         String ret = "";
         for(int i=0;i<build.size();i++){

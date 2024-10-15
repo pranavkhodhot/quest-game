@@ -745,4 +745,24 @@ public class MainTest {
         assertEquals(2,participants.size());
         assertEquals(true,game.getPlayer(4).getDeclinedToParticipate());
     }
+    /*------------------------------------RESP-14-----------------------------------------------------------------*/
+    @Test
+    @DisplayName("Check if participants draw an adventure card at the start of each stage and trims")
+    public void RESP_14_test_01() {
+        Game game = new Game();
+        game.shuffleAdventureDeck();
+        game.dealInitialAdventureCards();
+        Player sponsor = game.getPlayer(1);
+        Player player = game.getPlayer(2);
+        game.getAdventureDeck().addCard(new Card(Card.CardType.WEAPON,"E",30));
+
+        Quest currQuest = new Quest(2,sponsor,game);
+        List<Card> originalHand = new ArrayList<>(player.getHand());
+        ArrayList<String> commands = new ArrayList<>();
+        Collections.addAll(commands,"1");
+        game.setCommands(commands);
+
+        currQuest.handleBeginningStage(game.getPlayer(2));
+        assertFalse(originalHand.equals(player.getHand()));
+    }
 }
