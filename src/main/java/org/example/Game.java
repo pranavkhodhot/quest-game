@@ -12,6 +12,8 @@ public class Game {
     private int counter;
     private List<String> commands;
     private Scanner input;
+    private List<String> outputs;
+    private Card drawnCard;
 
     public Game() {
         adventureDeck = new Deck();
@@ -158,5 +160,17 @@ public class Game {
             return true;
         }
         return false;
+    }
+
+    public void processPlayerTurn(Player player) {
+
+    }
+
+    public List<String> getOutputs() {
+        return null;
+    }
+
+    public Card getDrawnCard() {
+        return null;
     }
 }

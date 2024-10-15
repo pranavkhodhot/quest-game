@@ -250,4 +250,46 @@ public class MainTest {
         assertEquals(1,game.getAdventureDeck().getDiscardSize());
         assertEquals("F5",game.getAdventureDeck().getDiscardCards().getFirst().getName());
     }
+    /*------------------------------------RESP-5-----------------------------------------------------------------*/
+    @Test
+    @DisplayName("Check If Player Has Drawn Event Card")
+    public void RESP_05_test_01() {
+        Game game = new Game();
+        game.getEventDeck().addCard(new Card(Card.CardType.EVENT, "Plague", 0));
+        Player player1 = game.getPlayer(1);
+        ArrayList<String> commands = new ArrayList<>();
+        Collections.addAll(commands,"1","Enter");
+        game.setCommands(commands);
+        game.processPlayerTurn(player1);
+        assertNotNull(game.getDrawnCard());
+        assertEquals("Plague",game.getDrawnCard().getName());
+    }
+
+    @Test
+    @DisplayName("Check If Drawn Event Card is Updated In Deck")
+    public void RESP_05_test_02() {
+        Game game = new Game();
+        game.getEventDeck().addCard(new Card(Card.CardType.EVENT, "Plague", 0));
+        assertEquals(18,game.getEventDeck().getDeckSize());
+        Player player1 = game.getPlayer(1);
+        ArrayList<String> commands = new ArrayList<>();
+        Collections.addAll(commands,"1","Enter");
+        game.setCommands(commands);
+        game.processPlayerTurn(player1);
+        assertEquals(17,game.getEventDeck().getDeckSize());
+    }
+
+    @Test
+    @DisplayName("Check If Game Displays Drawn Event Card")
+    public void RESP_05_test_03() {
+        Game game = new Game();
+        game.getEventDeck().addCard(new Card(Card.CardType.EVENT, "Plague", 0));
+        Player player1 = game.getPlayer(1);
+        ArrayList<String> commands = new ArrayList<>();
+        Collections.addAll(commands,"1","Enter");
+        game.setCommands(commands);
+        game.processPlayerTurn(player1);
+        List<String> output = game.getOutputs();
+        assertTrue(output.contains("P1 Drew Plague"));
+    }
 }
