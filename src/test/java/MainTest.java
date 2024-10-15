@@ -913,6 +913,66 @@ public class MainTest {
         List<Player> successfulParticipants = quest.startQuest();
         assertEquals(11,game.getPlayer(2).getHand().size());
     }
+    /*------------------------------------RESP-18-----------------------------------------------------------------*/
+    @Test
+    @DisplayName("Check the game awards shields based on number of stages")
+    public void RESP_18_test_01(){
+        Game game = new Game();
+        List<Player> winners = new ArrayList<>();
+        winners.add(game.getPlayer(1));
+        winners.add(game.getPlayer(2));
+
+        game.getPlayer(1).setSheilds(2);
+        game.getPlayer(2).setSheilds(4);
 
 
+        Player sponsor = game.getPlayer(1);
+        int numStages = 2;
+
+        Quest quest = new Quest(numStages, sponsor, game);
+
+        assertEquals(2,game.getPlayer(1).getSheilds());
+        assertEquals(4,game.getPlayer(2).getSheilds());
+        assertEquals(0,game.getPlayer(3).getSheilds());
+        assertEquals(0,game.getPlayer(4).getSheilds());
+
+        ArrayList<String> commands = new ArrayList<>();
+        Collections.addAll(commands,"Enter");
+        game.setCommands(commands);
+
+        quest.finishQuest(winners);
+
+        assertEquals(2+numStages,game.getPlayer(1).getSheilds());
+        assertEquals(4+numStages,game.getPlayer(2).getSheilds());
+        assertEquals(0,game.getPlayer(3).getSheilds());
+        assertEquals(0,game.getPlayer(4).getSheilds());
+    }
+
+    @Test
+    @DisplayName("Check the game awards shields to winners of quest")
+    public void RESP_18_test_02(){
+        Game game = new Game();
+        List<Player> winners = new ArrayList<>();
+        winners.add(game.getPlayer(1));
+
+        Player sponsor = game.getPlayer(1);
+
+        Quest quest = new Quest(2, sponsor, game);
+
+        assertEquals(0,game.getPlayer(1).getSheilds());
+        assertEquals(0,game.getPlayer(2).getSheilds());
+        assertEquals(0,game.getPlayer(3).getSheilds());
+        assertEquals(0,game.getPlayer(4).getSheilds());
+
+        ArrayList<String> commands = new ArrayList<>();
+        Collections.addAll(commands,"Enter");
+        game.setCommands(commands);
+
+        quest.finishQuest(winners);
+
+        assertEquals(2,game.getPlayer(1).getSheilds());
+        assertEquals(0,game.getPlayer(2).getSheilds());
+        assertEquals(0,game.getPlayer(3).getSheilds());
+        assertEquals(0,game.getPlayer(4).getSheilds());
+    }
 }

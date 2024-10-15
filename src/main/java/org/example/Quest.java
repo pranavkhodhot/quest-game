@@ -241,4 +241,8 @@ public class Quest {
         }
         return ret;
     }
+
+    public void finishQuest(List<Player> successfulPlayers) {
+
+    }
 }
