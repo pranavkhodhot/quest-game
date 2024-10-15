@@ -1000,4 +1000,79 @@ public class MainTest {
         assertEquals(5,game.getAdventureDeck().getDiscardSize());
 
     }
+    /*------------------------------------RESP-20-----------------------------------------------------------------*/
+    @Test
+    @DisplayName("Check that sponsor draws the correct number of cards after the quest ends")
+    public void RESP_20_test_01() {
+        Game game = new Game();
+        Player sponsor = game.getPlayer(1);
+
+        Quest quest = new Quest(2, sponsor, game);
+        quest.getStageCards().add(new Card(Card.CardType.FOE,"F5",5));
+        quest.getStageCards().add(new Card(Card.CardType.FOE,"F10",10));
+        quest.getStageCards().add(new Card(Card.CardType.FOE,"F15",15));
+        quest.getStageCards().add(new Card(Card.CardType.FOE,"F20",20));
+        quest.getStageCards().add(new Card(Card.CardType.FOE,"F25",25));
+
+        assertEquals(0,sponsor.getHand().size());
+
+        ArrayList<String> commands = new ArrayList<>();
+        Collections.addAll(commands,"Enter");
+        game.setCommands(commands);
+
+        quest.finishQuest(new ArrayList<>());
+        assertEquals(7,sponsor.getHand().size());
+    }
+
+    @Test
+    @DisplayName("Check that game checks trim after sponsor gains cards")
+    public void RESP_20_test_02() {
+        Game game = new Game();
+        Player sponsor = game.getPlayer(1);
+
+        sponsor.addCard(new Card(Card.CardType.FOE,"F5",5));
+        sponsor.addCard(new Card(Card.CardType.FOE,"F10",10));
+        sponsor.addCard(new Card(Card.CardType.FOE,"F15",15));
+
+        Quest quest = new Quest(5, sponsor, game);
+        quest.getStageCards().add(new Card(Card.CardType.FOE,"F5",5));
+        quest.getStageCards().add(new Card(Card.CardType.FOE,"F10",10));
+        quest.getStageCards().add(new Card(Card.CardType.FOE,"F15",15));
+        quest.getStageCards().add(new Card(Card.CardType.FOE,"F20",20));
+        quest.getStageCards().add(new Card(Card.CardType.FOE,"F25",25));
+
+        List<Card> originalCards = new ArrayList<>(sponsor.getHand());
+
+        ArrayList<String> commands = new ArrayList<>();
+        Collections.addAll(commands,"Enter","1");
+        game.setCommands(commands);
+
+        quest.finishQuest(new ArrayList<>());
+        assertNotEquals(originalCards, sponsor.getHand());
+        assertEquals(12, sponsor.getHand().size());
+    }
+
+    @Test
+    @DisplayName("Check that deck is updated correctly after sponsor draws cards")
+    public void RESP_20_test_03() {
+        Game game = new Game();
+        Player sponsor = game.getPlayer(1);
+
+        Quest quest = new Quest(2, sponsor, game);
+        quest.getStageCards().add(new Card(Card.CardType.FOE,"F5",5));
+        quest.getStageCards().add(new Card(Card.CardType.FOE,"F10",10));
+        quest.getStageCards().add(new Card(Card.CardType.FOE,"F15",15));
+        quest.getStageCards().add(new Card(Card.CardType.FOE,"F20",20));
+        quest.getStageCards().add(new Card(Card.CardType.FOE,"F25",25));
+
+
+        ArrayList<String> commands = new ArrayList<>();
+        Collections.addAll(commands,"Enter");
+        game.setCommands(commands);
+
+        assertEquals(100,game.getAdventureDeck().getDeckSize());
+
+        quest.finishQuest(new ArrayList<>());
+        assertEquals(100-7,game.getAdventureDeck().getDeckSize());
+    }
 }
