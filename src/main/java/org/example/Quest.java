@@ -163,6 +163,7 @@ public class Quest {
                 } else {
                     attackCards.add(chosenCard);
                     attackValue += chosenCard.getValue();
+                    game.discardAdventureCard(participant.getHand().remove(cardPos - 1));
                 }
             } catch (NumberFormatException | IndexOutOfBoundsException e) {
                 game.logAndPrint("Invalid input. Please try again.");
