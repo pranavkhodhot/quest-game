@@ -21,44 +21,88 @@ public class Quest {
         return stageCards;
     }
 
+    public boolean validStage(List<Card> stage){
+        for(int i=0;i< stage.size();i++){
+            if(stage.get(i).getName().startsWith("F")){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean hasRepeatedCard(List<Card> build, Card card){
+        for(int i=0;i< build.size();i++){
+            if(build.get(i).getName().equals(card.getName())){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void buildQuest() {
         int count = 0;
         game.logAndPrint("P" + sponsor.getId() + " Will Begin the Stage Building Process");
         stageValues.add(0);
         List<Card> currStageCards = new ArrayList<>();
         int currStageValue = 0;
-        while (count < stages) {
-            try {
+        while(count < stages){
+            try{
                 sponsor.showHand();
                 game.logAndPrint("Previous Stage Value: " + stageValues.getLast());
                 game.logAndPrint("Current Stage Value: " + currStageValue);
                 game.logAndPrint("Current Cards: " + cardBuildString(currStageCards));
-                game.logAndPrint("Select the position of the card to include in Stage #" + (count + 1) + " or enter Quit to stop building stage");
+                game.logAndPrint("Select the position of the card to include in Stage #" + (count+1) + " or enter Quit to stop building stage");
                 String answer = game.getNextCommandOrInput();
-                if (answer.equalsIgnoreCase("Quit")) {
-                    stageValues.add(currStageValue);
-                    currStageCards.clear();
-                    currStageValue = 0;
-                    count++;
-                    game.clearScreen();
+                if(answer.equalsIgnoreCase("Quit")){
+                    if(currStageCards.isEmpty()){
+                        game.logAndPrint("Stage cannot be Empty" );
+                    } else if (!validStage(currStageCards)) {
+                        game.logAndPrint("Stage cannot have no foe");
+                    } else if(currStageValue <= stageValues.getLast() ){
+                        game.logAndPrint("Insufficient value for this stage");
+                    }
+                    else {
+                        stageValues.add(currStageValue);
+                        currStageCards.clear();
+                        currStageValue = 0;
+                        count++;
+                        game.clearScreen();
+                    }
                     continue;
                 }
                 int pos = Integer.parseInt(answer);
-                Card stageCard = sponsor.getHand().get(pos - 1);
-                stageCards.add(stageCard);
-                currStageCards.add(stageCard);
-                currStageValue += stageCard.getValue();
-                sponsor.getHand().remove(pos - 1);
+                Card stageCard = sponsor.getHand().get(pos-1);
+                if(stageCard.getCardType()== Card.CardType.FOE){
+                    if(validStage(currStageCards)){
+                        game.logAndPrint("Cannot have more than 1 Foe Card in a stage");
+                    } else {
+                        stageCards.add(stageCard);
+                        currStageCards.add(stageCard);
+                        currStageValue += stageCard.getValue();
+                        sponsor.getHand().remove(pos-1);
 
-            } catch (NumberFormatException err) {
+                    }
+                } else {
+                    if(hasRepeatedCard(currStageCards,stageCard)){
+                        game.logAndPrint("Cannot have repeated weapon card in Stage");
+                    } else {
+                        stageCards.add(stageCard);
+                        currStageCards.add(stageCard);
+                        currStageValue += stageCard.getValue();
+                        sponsor.getHand().remove(pos-1);
+                    }
+                }
+            }
+            catch (NumberFormatException err) {
                 game.logAndPrint("Not a valid integer. Please try again");
-            } catch (IndexOutOfBoundsException err) {
+            }
+            catch (IndexOutOfBoundsException err) {
                 game.logAndPrint("Not a valid position. Please try again");
             }
 
         }
         game.logAndPrint("All stages are built");
-        for (int i = 1; i < stageValues.size(); i++) {
+        for(int i=1;i<stageValues.size();i++){
             game.logAndPrint("Stage #" + i + " Value: " + stageValues.get(i));
         }
         game.logAndPrint("Press [ENTER] to complete stage changes");
