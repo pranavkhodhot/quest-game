@@ -179,6 +179,10 @@ public class Game {
         return false;
     }
 
+    public void discardEventCard(Card card){
+        eventDeck.discardCard(card);
+    }
+
     public void processPlayerTurn(Player player) {
         System.out.println("P" + player.getId() + "'s Turn");
         checkTrim(player);
@@ -204,6 +208,7 @@ public class Game {
             }
         }
 
+        discardEventCard(drawnCard);
         System.out.println("Press [ENTER] to end your turn");
         ignore = getNextCommandOrInput();
         counter++;
