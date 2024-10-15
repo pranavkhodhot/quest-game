@@ -19,7 +19,7 @@ public class Player {
     }
 
     public int getId() {
-        return -1;
+        return id;
     }
 
     public void addCard(Card card) {

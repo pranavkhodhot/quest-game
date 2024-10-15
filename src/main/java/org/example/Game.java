@@ -14,6 +14,8 @@ public class Game {
         adventureDeck = new Deck();
         eventDeck = new Deck();
         this.players = new ArrayList<>();
+        this.currPlayer = null;
+        this.counter = 0;
         for(int i=0;i<4;i++){
             this.players.add(new Player(i+1));
         }
@@ -53,23 +55,24 @@ public class Game {
     }
 
     public int getCounter() {
-        return -1;
+        return counter;
     }
 
     public void setCounter(int counter) {
-
+        this.counter = counter;
     }
 
     public Player getCurrPlayer() {
-        return null;
+        return currPlayer;
     }
 
     public void setCurrPlayer(Player currPlayer) {
-
+        this.currPlayer = currPlayer;
     }
 
     public Player getNextPlayer(int turnCounter) {
-        return null;
+        int turn = (turnCounter % players.size()) + 1;
+        return this.getPlayer(turn);
     }
 
 
