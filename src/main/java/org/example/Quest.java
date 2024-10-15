@@ -136,6 +136,37 @@ public class Quest {
 
     public List<Card> buildAttack(Player participant) {
         List<Card> attackCards = new ArrayList<>();
+        int attackValue = 0;
+        while (true) {
+            participant.showHand();
+            game.logAndPrint("Current Attack: " + cardBuildString(attackCards));
+            game.logAndPrint("Current Attack Value: " + attackValue);
+            game.logAndPrint("Select the position of the card to include in your attack or type 'Quit' when finished");
+            String input = game.getNextCommandOrInput();
+            if (input.equalsIgnoreCase("Quit")) {
+                if (attackCards.isEmpty()) {
+                    game.logAndPrint("Can't have an empty attack.");
+                    continue;
+                } else {
+                    break;
+                }
+            }
+            try {
+                int cardPos = Integer.parseInt(input);
+                Card chosenCard = participant.getHand().get(cardPos - 1);
+                if (hasRepeatedCard(attackCards, chosenCard)) {
+                    game.logAndPrint("You cannot use the same card twice");
+                } else if (chosenCard.getCardType() == Card.CardType.FOE) {
+                    game.logAndPrint("Cannot use FOE card in attack");
+                } else {
+                    attackCards.add(chosenCard);
+                    attackValue += chosenCard.getValue();
+                    game.discardAdventureCard(participant.getHand().remove(cardPos - 1));
+                }
+            } catch (NumberFormatException | IndexOutOfBoundsException e) {
+                game.logAndPrint("Invalid input. Please try again.");
+            }
+        }
         return attackCards;
     }
 
