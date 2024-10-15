@@ -606,4 +606,92 @@ public class MainTest {
         currQuest.buildQuest();
         assertEquals(2,currQuest.getStageCards().size());
     }
+    /*------------------------------------RESP-12-----------------------------------------------------------------*/
+    @Test
+    @DisplayName("Check if each stage of quest is validated for being non-empty")
+    public void RESP_12_test_01() {
+        Game game = new Game();
+        Player sponsor = game.getPlayer(1);
+        List<Card> sponsorHand = new ArrayList<>();
+        Collections.addAll(sponsorHand,new Card(Card.CardType.FOE,"F5",5),new Card(Card.CardType.FOE,"F10",10));
+        sponsor.setHand(sponsorHand);
+
+        Quest currQuest = new Quest(2,sponsor,game);
+
+        ArrayList<String> commands = new ArrayList<>();
+        Collections.addAll(commands,"Quit","1","Quit","Quit","1","Quit","Enter");
+
+        game.setCommands(commands);
+
+        List<String> outputs = game.getOutputs();
+        currQuest.buildQuest();
+
+        assertEquals(2,Collections.frequency(outputs,"Stage cannot be Empty"));
+    }
+
+    @Test
+    @DisplayName("Check if each stage validates for current stage value being greater than previous")
+    public void RESP_12_test_02() {
+        Game game = new Game();
+        Player sponsor = game.getPlayer(1);
+        List<Card> sponsorHand = new ArrayList<>();
+        Collections.addAll(sponsorHand,new Card(Card.CardType.FOE,"F5",5),new Card(Card.CardType.FOE,"F10",10), new Card(Card.CardType.WEAPON,"E",30));
+        sponsor.setHand(sponsorHand);
+
+        Quest currQuest = new Quest(2,sponsor,game);
+
+        ArrayList<String> commands = new ArrayList<>();
+        Collections.addAll(commands,"2","Quit","1","Quit","1","Quit","Enter");
+
+        game.setCommands(commands);
+
+        List<String> outputs = game.getOutputs();
+        currQuest.buildQuest();
+
+        assertTrue(outputs.contains("Insufficient value for this stage"));
+    }
+
+    @Test
+    @DisplayName("Check if each stage has ATLEAST 1 Foe Card")
+    public void RESP_12_test_03() {
+        Game game = new Game();
+        Player sponsor = game.getPlayer(1);
+        List<Card> sponsorHand = new ArrayList<>();
+        Collections.addAll(sponsorHand,new Card(Card.CardType.FOE,"F5",5),new Card(Card.CardType.FOE,"F20",20), new Card(Card.CardType.WEAPON,"D",5));
+        sponsor.setHand(sponsorHand);
+
+        Quest currQuest = new Quest(2,sponsor,game);
+
+        ArrayList<String> commands = new ArrayList<>();
+        Collections.addAll(commands,"3","Quit","1","Quit","1","Quit","Enter");
+
+        game.setCommands(commands);
+
+        List<String> outputs = game.getOutputs();
+        currQuest.buildQuest();
+
+        assertTrue(outputs.contains("Stage cannot have no foe"));
+    }
+
+    @Test
+    @DisplayName("Check that weapon cards are not repeated for a stage")
+    public void RESP_12_test_04() {
+        Game game = new Game();
+        Player sponsor = game.getPlayer(1);
+        List<Card> sponsorHand = new ArrayList<>();
+        Collections.addAll(sponsorHand,new Card(Card.CardType.FOE,"F5",5),new Card(Card.CardType.FOE,"F5",5), new Card(Card.CardType.WEAPON,"D",5), new Card(Card.CardType.WEAPON,"D",5), new Card(Card.CardType.WEAPON,"H",10));
+        sponsor.setHand(sponsorHand);
+
+        Quest currQuest = new Quest(2,sponsor,game);
+
+        ArrayList<String> commands = new ArrayList<>();
+        Collections.addAll(commands,"1","Quit","1","1","1","Quit","Enter");
+
+        game.setCommands(commands);
+
+        List<String> outputs = game.getOutputs();
+        currQuest.buildQuest();
+
+        assertTrue(outputs.contains("Cannot have repeated weapon card in Stage"));
+    }
 }
