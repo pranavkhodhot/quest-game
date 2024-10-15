@@ -170,6 +170,17 @@ public class Quest {
         return attackCards;
     }
 
+    public List<Integer> getStageValues() {
+        return null;
+    }
+
+    public List<Player> startQuest(){
+        return null;
+    }
+    public boolean buildAndResolveAttack(Player participant, int currentStage) {
+        return false;
+    }
+
     public String cardBuildString(List<Card> build) {
         String ret = "";
         for(int i=0;i<build.size();i++){

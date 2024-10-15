@@ -827,5 +827,48 @@ public class MainTest {
         currQuest.buildAttack(player);
         assertTrue(outputs.contains("You cannot use the same card twice"));
     }
+    @Test
+    @DisplayName("Check Game resolves each attack by comparing the attack value to the stage difficulty")
+    public void RESP_16_test_01() {
+        Game game = new Game();
+        Player sponsor = game.getPlayer(1);
+        Player player = game.getPlayer(2);
+        game.getPlayer(2).addCard(new Card(Card.CardType.WEAPON,"D",5));
+        game.getPlayer(2).addCard(new Card(Card.CardType.WEAPON,"E",30));
+        game.getPlayer(2).addCard(new Card(Card.CardType.WEAPON,"E",30));
+
+        Quest currQuest = new Quest(2,sponsor,game);
+        currQuest.getStageValues().add(0);
+        currQuest.getStageValues().add(10);
+
+        ArrayList<String> commands = new ArrayList<>();
+        Collections.addAll(commands,"3","Quit","Enter");
+        game.setCommands(commands);
+
+        boolean res = currQuest.buildAndResolveAttack(player,1);
+        assertTrue(res);
+    }
+
+    @Test
+    @DisplayName("Check that participants who fail an attack are removed from the quest")
+    public void RESP_16_test_02(){
+        Game game = new Game();
+        game.dealInitialAdventureCards();
+        game.getEventDeck().addCard(new Card(Card.CardType.QUEST, "Q2", 2));
+        game.getAdventureDeck().addCard(new Card(Card.CardType.WEAPON, "S", 10));  // Sword card (value 10)
+
+        Player sponsor = game.getPlayer(1);
+
+        Quest quest = new Quest(2, sponsor, game);
+        quest.getStageValues().add(0);
+        quest.getStageValues().add(30);
+
+        ArrayList<String> commands = new ArrayList<>();
+        Collections.addAll(commands,"Yes","No","No","1","12","Quit","Enter");
+        game.setCommands(commands);
+
+        List<Player> successfulParticipants = quest.startQuest();
+        assertTrue(successfulParticipants.isEmpty());
+    }
 
 }
