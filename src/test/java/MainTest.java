@@ -197,4 +197,57 @@ public class MainTest {
         game.setCurrPlayer(game.getNextPlayer(game.getCounter()));
         assertEquals(1,game.getCurrPlayer().getId());
     }
+    /*------------------------------------RESP-4-----------------------------------------------------------------*/
+    @Test
+    @DisplayName("Check Trim Function Will Prompt to Trim Hand if Over 12")
+    public void RESP_04_test_01() {
+        Game game = new Game();
+        ArrayList<String> commands = new ArrayList<>();
+        commands.add("1");
+        game.setCommands(commands);
+        game.dealInitialAdventureCards();
+        game.dealAdventureCards(1,1);
+        boolean res = game.checkTrim(game.getPlayer(1));
+        assertTrue(res);
+    }
+
+    @Test
+    @DisplayName("Check Trim Function Will Not Prompt to Trim Hand if 12 or Under")
+    public void RESP_04_test_02() {
+        Game game = new Game();
+        ArrayList<String> commands = new ArrayList<>();
+        game.setCommands(commands);
+        game.dealInitialAdventureCards();
+        boolean res = game.checkTrim(game.getPlayer(1));
+        assertFalse(res);
+    }
+
+    @Test
+    @DisplayName("Check Player Hand Is Successfully Trimmed")
+    public void RESP_04_test_03() {
+        Game game = new Game();
+        ArrayList<String> commands = new ArrayList<>();
+        commands.add("1");
+        game.setCommands(commands);
+        game.dealInitialAdventureCards();
+        assertEquals(12,game.getPlayer(1).getHand().size());
+        game.dealAdventureCards(1,1);
+        assertEquals(13,game.getPlayer(1).getHand().size());
+        game.checkTrim(game.getPlayer(1));
+        assertEquals(12,game.getPlayer(1).getHand().size());
+    }
+
+    @Test
+    @DisplayName("Check If Card Is Discarded Correctly")
+    public void RESP_04_test_04() {
+        Game game = new Game();
+        ArrayList<String> commands = new ArrayList<>();
+        commands.add("1");
+        game.setCommands(commands);
+        game.dealInitialAdventureCards();
+        game.getPlayer(1).addCard(new Card(Card.CardType.FOE,"F5",10));
+        game.checkTrim(game.getPlayer(1));
+        assertEquals(1,game.getAdventureDeck().getDiscardSize());
+        assertEquals("F5",game.getAdventureDeck().getDiscardCards().getFirst().getName());
+    }
 }

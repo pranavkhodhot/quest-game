@@ -9,6 +9,7 @@ public class Game {
     private List<Player> players;
     private Player currPlayer;
     private int counter;
+    private List<String> commands;
 
     public Game() {
         adventureDeck = new Deck();
@@ -75,6 +76,9 @@ public class Game {
         return this.getPlayer(turn);
     }
 
+    public void setCommands(List<String> commands) {
+
+    }
 
     public void shuffleAdventureDeck() {
         adventureDeck.shuffle();
@@ -113,5 +117,13 @@ public class Game {
 
     public void discardAdventureCard(Card card){
         adventureDeck.discardCard(card);
+    }
+
+    public void dealInitialAdventureCards(){
+
+    }
+
+    public boolean checkTrim(Player player){
+        return false;
     }
 }
