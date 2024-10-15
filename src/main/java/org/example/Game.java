@@ -2,6 +2,7 @@ package org.example;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Game {
     private Deck adventureDeck;
@@ -10,12 +11,15 @@ public class Game {
     private Player currPlayer;
     private int counter;
     private List<String> commands;
+    private Scanner input;
 
     public Game() {
         adventureDeck = new Deck();
         eventDeck = new Deck();
         this.players = new ArrayList<>();
         this.currPlayer = null;
+        this.commands = new ArrayList<>();
+        this.input = new Scanner(System.in);
         this.counter = 0;
         for(int i=0;i<4;i++){
             this.players.add(new Player(i+1));
@@ -55,6 +59,14 @@ public class Game {
         addCardsToDeck(eventDeck, "Prosperity", Card.CardType.EVENT, 0, 2);  // 16 Sword cards
     }
 
+    public String getNextCommandOrInput() {
+        if (commands != null && !commands.isEmpty()) {
+            return commands.remove(0);
+        } else {
+            return input.nextLine();
+        }
+    }
+
     public int getCounter() {
         return counter;
     }
@@ -77,7 +89,7 @@ public class Game {
     }
 
     public void setCommands(List<String> commands) {
-
+        this.commands = commands;
     }
 
     public void shuffleAdventureDeck() {
@@ -120,10 +132,31 @@ public class Game {
     }
 
     public void dealInitialAdventureCards(){
-
+        for (Player player : players) {
+            this.dealAdventureCards(12, player.getId());
+        }
     }
 
     public boolean checkTrim(Player player){
+        if(player.getHand().size() > 12){
+            int amount = player.getHand().size()-12;
+            System.out.println("You must discard " + amount + " cards");
+            while(player.getHand().size() > 12){
+                player.showHand();
+                try {
+                    System.out.println("Select a position to discard");
+                    int pos = Integer.parseInt(getNextCommandOrInput());
+                    Card discardCard = player.getHand().remove(pos-1);
+                    discardAdventureCard(discardCard);
+                    System.out.println("Adventure Deck Discard: " + adventureDeck.getDiscardSize());
+                } catch (NumberFormatException err) {
+                    System.out.println("Not a valid integer. Please try again");
+                } catch (IndexOutOfBoundsException err) {
+                    System.out.println("Not a valid position. Please try again");
+                }
+            }
+            return true;
+        }
         return false;
     }
 }

@@ -62,4 +62,12 @@ public class Player {
 
         hand.add(card);
     }
+
+    public void showHand(){
+        System.out.println("P" + id + " hand");
+        for(int i=0;i<hand.size();i++){
+            System.out.println(i+1 + ". " + hand.get(i).toString());
+        }
+        System.out.println("\n");
+    }
 }
