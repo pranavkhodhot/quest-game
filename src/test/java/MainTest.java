@@ -1120,5 +1120,136 @@ public class MainTest {
         assertTrue(outputs.contains("Congratulations to P3 for being Knighted!"));
         assertTrue(outputs.contains("Congratulations to P4 for being Knighted!"));
     }
-    
+    /*------------------------------------A-TEST-----------------------------------------------------------------*/
+    @Test
+    @DisplayName("A-TEST")
+    public void A_TEST() {
+        Game game = new Game();
+
+        Player p1 = game.getPlayer(1);
+        Player p2 = game.getPlayer(2);
+        Player p3 = game.getPlayer(3);
+        Player p4 = game.getPlayer(4);
+
+        game.getEventDeck().addCard(new Card(Card.CardType.QUEST, "Q4", 4));
+
+        game.getAdventureDeck().addCard(new Card(Card.CardType.WEAPON, "L", 20));
+        game.getAdventureDeck().addCard(new Card(Card.CardType.FOE, "F30", 30));
+        game.getAdventureDeck().addCard(new Card(Card.CardType.WEAPON, "S", 10));
+        game.getAdventureDeck().addCard(new Card(Card.CardType.WEAPON, "B", 15));
+        game.getAdventureDeck().addCard(new Card(Card.CardType.WEAPON, "L", 20));
+        game.getAdventureDeck().addCard(new Card(Card.CardType.WEAPON, "L", 20));
+        game.getAdventureDeck().addCard(new Card(Card.CardType.FOE, "F10", 10));
+        game.getAdventureDeck().addCard(new Card(Card.CardType.WEAPON, "B", 15));
+        game.getAdventureDeck().addCard(new Card(Card.CardType.WEAPON, "S", 10));
+        game.getAdventureDeck().addCard(new Card(Card.CardType.FOE, "F30", 30));
+
+
+        p1.addCard(new Card(Card.CardType.FOE, "F5", 5));
+        p1.addCard(new Card(Card.CardType.FOE, "F5", 5));
+        p1.addCard(new Card(Card.CardType.FOE, "F15", 15));
+        p1.addCard(new Card(Card.CardType.FOE, "F15", 15));
+        p1.addCard(new Card(Card.CardType.WEAPON, "D", 5));
+        p1.addCard(new Card(Card.CardType.WEAPON, "S", 10));
+        p1.addCard(new Card(Card.CardType.WEAPON, "S", 10));
+        p1.addCard(new Card(Card.CardType.WEAPON, "H", 10));
+        p1.addCard(new Card(Card.CardType.WEAPON, "H", 10));
+        p1.addCard(new Card(Card.CardType.WEAPON, "B", 15));
+        p1.addCard(new Card(Card.CardType.WEAPON, "B", 15));
+        p1.addCard(new Card(Card.CardType.WEAPON, "L", 20));
+
+        p2.addCard(new Card(Card.CardType.FOE, "F5", 5));
+        p2.addCard(new Card(Card.CardType.FOE, "F5", 5));
+        p2.addCard(new Card(Card.CardType.FOE, "F15", 15));
+        p2.addCard(new Card(Card.CardType.FOE, "F15", 15));
+        p2.addCard(new Card(Card.CardType.FOE, "F40", 40));
+        p2.addCard(new Card(Card.CardType.WEAPON, "D", 5));
+        p2.addCard(new Card(Card.CardType.WEAPON, "S", 10));
+        p2.addCard(new Card(Card.CardType.WEAPON, "H", 10));
+        p2.addCard(new Card(Card.CardType.WEAPON, "H", 10));
+        p2.addCard(new Card(Card.CardType.WEAPON, "B", 15));
+        p2.addCard(new Card(Card.CardType.WEAPON, "B", 15));
+        p2.addCard(new Card(Card.CardType.WEAPON, "E", 30));
+
+        p3.addCard(new Card(Card.CardType.FOE, "F5", 5));
+        p3.addCard(new Card(Card.CardType.FOE, "F5", 5));
+        p3.addCard(new Card(Card.CardType.FOE, "F5", 5));
+        p3.addCard(new Card(Card.CardType.FOE, "F15", 15));
+        p3.addCard(new Card(Card.CardType.WEAPON, "D", 5));
+        p3.addCard(new Card(Card.CardType.WEAPON, "S", 10));
+        p3.addCard(new Card(Card.CardType.WEAPON, "S", 10));
+        p3.addCard(new Card(Card.CardType.WEAPON, "S", 10));
+        p3.addCard(new Card(Card.CardType.WEAPON, "H", 10));
+        p3.addCard(new Card(Card.CardType.WEAPON, "H", 10));
+        p3.addCard(new Card(Card.CardType.WEAPON, "B", 15));
+        p3.addCard(new Card(Card.CardType.WEAPON, "L", 20));
+
+        p4.addCard(new Card(Card.CardType.FOE, "F5", 5));
+        p4.addCard(new Card(Card.CardType.FOE, "F15", 15));
+        p4.addCard(new Card(Card.CardType.FOE, "F15", 15));
+        p4.addCard(new Card(Card.CardType.FOE, "F40", 40));
+        p4.addCard(new Card(Card.CardType.WEAPON, "D", 5));
+        p4.addCard(new Card(Card.CardType.WEAPON, "D", 5));
+        p4.addCard(new Card(Card.CardType.WEAPON, "S", 10));
+        p4.addCard(new Card(Card.CardType.WEAPON, "H", 10));
+        p4.addCard(new Card(Card.CardType.WEAPON, "H", 10));
+        p4.addCard(new Card(Card.CardType.WEAPON, "B", 15));
+        p4.addCard(new Card(Card.CardType.WEAPON, "L", 20));
+        p4.addCard(new Card(Card.CardType.WEAPON, "E", 30));
+
+
+        ArrayList<String> commands = new ArrayList<>();
+        //P1 Drawing Q4 and P2 Accepting Sponsorship
+        Collections.addAll(commands, "Enter","No","Yes");
+        //P2 Building Quest and All Players Participating in Stage 1
+        Collections.addAll(commands, "1","7","Quit","2","5","Quit","2","3","5","Quit","2","3","Quit","Enter","Yes","Yes","Yes");
+        //P1 Trimming and Building Attack for Stage 1
+        Collections.addAll(commands, "1","5","5","Quit","Enter");
+        //P3 Trimming and Building Attack for Stage 1
+        Collections.addAll(commands, "1","5","4","Quit","Emter");
+        //P4 Trimming and Building Attack for Stage 1 than P1,P3,P4 Accepting Stage 2
+        Collections.addAll(commands, "1","4","6","Quit","Enter","Yes","Yes","Yes");
+        //P1 Building Attack for Stage 2
+        Collections.addAll(commands, "7","6","Quit","Enter");
+        //P3 Building Attack for Stage 2
+        Collections.addAll(commands, "9","6","Quit","Enter");
+        //P4 Building Attack for Stage 2 than P3,P4 Accepting Stage 3
+        Collections.addAll(commands, "6","6","Quit","Enter","Yes","Yes");
+        //P3 Building Attack for Stage 3
+        Collections.addAll(commands, "10","7","5","Quit","Enter");
+        //P4 Building Attack for Stage 3 than P3,P4 Accepting Stage 4
+        Collections.addAll(commands, "7","6","7","Quit","Enter","Yes","Yes");
+        //P3 Building Attack for Stage 4
+        Collections.addAll(commands, "7","6","6","Quit","Enter");
+        //P4 Building Attack for Stage 4
+        Collections.addAll(commands, "4","4","4","5","Quit","Enter");
+        //Sponsor (P2) now manages new hand with added cards
+        Collections.addAll(commands, "Enter","1","1","1","1","Enter");
+        game.setCommands(commands);
+
+        game.processPlayerTurn(p1);
+        //Asserts for P1
+        assertEquals(0,p1.getSheilds());
+        ArrayList<String> p1CardNames = new ArrayList<>();
+        Collections.addAll(p1CardNames, "F5","F10","F15","F15","F30","H","B","B","L");
+        for(int i=0;i<p1.getHand().size();i++){
+            assertEquals(p1CardNames.get(i),p1.getHand().get(i).getName());
+        }
+
+        //Asserts for P3
+        assertEquals(0,p3.getSheilds());
+        ArrayList<String> p3CardNames = new ArrayList<>();
+        Collections.addAll(p3CardNames, "F5","F5","F15","F30","S");
+        for(int i=0;i<p3.getHand().size();i++){
+            assertEquals(p3CardNames.get(i),p3.getHand().get(i).getName());
+        }
+
+        //Asserts for P4
+        assertEquals(4,p4.getSheilds());
+        ArrayList<String> p4CardNames = new ArrayList<>();
+        Collections.addAll(p4CardNames, "F15","F15","F40","L");
+        for(int i=0;i<p4.getHand().size();i++){
+            assertEquals(p4CardNames.get(i),p4.getHand().get(i).getName());
+        }
+    }
 }
