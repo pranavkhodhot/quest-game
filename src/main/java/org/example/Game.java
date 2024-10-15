@@ -183,12 +183,18 @@ public class Game {
         System.out.println("P" + player.getId() + "'s Turn");
         checkTrim(player);
         player.showHand();
+        player.showSheilds();
+
 
         System.out.println("Press [ENTER] to draw");
         String ignore = getNextCommandOrInput();
 
         drawnCard = dealEventCard();
         logAndPrint("P" + player.getId() + " Drew " + drawnCard);
+
+        if (drawnCard.getCardType() == Card.CardType.EVENT) {
+            handleEventCard(drawnCard, player);
+        }
 
         for (int i=0;i<players.size();i++) {
             if(checkTrim(players.get(i))){
@@ -199,6 +205,15 @@ public class Game {
         System.out.println("Press [ENTER] to end your turn");
         ignore = getNextCommandOrInput();
         counter++;
+    }
+
+    public void handleEventCard(Card eventCard, Player currPlayer) {
+        switch (eventCard.getName()) {
+            case "Plague":
+                currPlayer.setSheilds(currPlayer.getSheilds() - 2);
+                System.out.println("P" + currPlayer.getId() + " now has " + currPlayer.getSheilds() + " shields");
+                break;
+        }
     }
 
     public List<String> getOutputs() {

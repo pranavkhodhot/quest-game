@@ -19,14 +19,23 @@ public class Player {
     }
 
     public int getSheilds() {
-        return -1;
+        return sheilds;
     }
 
     public void setSheilds(int sheilds) {
+        if(sheilds < 0){
+            this.sheilds = 0;
+        } else {
+            this.sheilds = sheilds;
+        }
     }
 
     public int getId() {
         return id;
+    }
+
+    public void showSheilds(){
+        System.out.println("P" + id + " Number of Sheilds: " + sheilds);
     }
 
     public void addCard(Card card) {
