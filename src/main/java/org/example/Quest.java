@@ -252,6 +252,10 @@ public class Quest {
             }
         }
         int numStageCards = stageCards.size();
+        for(int i=0;i<stageCards.size();i++){
+            game.discardAdventureCard(stageCards.removeFirst());
+            i--;
+        }
 
         game.logAndPrint("Sponsor will now regain Cards, Press [ENTER] to begin card redraw");
         String out = game.getNextCommandOrInput();

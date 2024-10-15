@@ -977,7 +977,7 @@ public class MainTest {
     }
     /*------------------------------------RESP-19-----------------------------------------------------------------*/
     @Test
-    @DisplayName("Check that sponsor draws the correct number of cards after the quest ends")
+    @DisplayName("Check that stage cards are properly discarded")
     public void RESP_19_test_01() {
         Game game = new Game();
         Player sponsor = game.getPlayer(1);
