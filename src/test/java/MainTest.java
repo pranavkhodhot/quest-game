@@ -292,4 +292,39 @@ public class MainTest {
         List<String> output = game.getOutputs();
         assertTrue(output.contains("P1 Drew Plague"));
     }
+    /*------------------------------------RESP-6-----------------------------------------------------------------*/
+    @Test
+    @DisplayName("Check If player loses 2 shields when the Plague card is drawn")
+    public void RESP_06_test_01() {
+        Game game = new Game();
+        game.getEventDeck().addCard(new Card(Card.CardType.EVENT, "Plague", 0));
+        Player player1 = game.getPlayer(1);
+        player1.setSheilds(5);
+        ArrayList<String> commands = new ArrayList<>();
+        Collections.addAll(commands,"1","Enter");
+        game.setCommands(commands);
+        assertEquals(5,player1.getSheilds());
+        game.processPlayerTurn(player1);
+        assertEquals(3,player1.getSheilds());
+
+    }
+
+    @Test
+    @DisplayName("Check If Player Draws Plague and has less than 2 shield than it will still be 0")
+    public void RESP_06_test_02() {
+        Game game = new Game();
+        game.getEventDeck().addCard(new Card(Card.CardType.EVENT, "Plague", 0));
+        game.getEventDeck().addCard(new Card(Card.CardType.EVENT, "Plague", 0));
+
+        Player player1 = game.getPlayer(1);
+        player1.setSheilds(1);
+        ArrayList<String> commands = new ArrayList<>();
+        Collections.addAll(commands,"1","Enter","1","Enter");
+        game.setCommands(commands);
+        assertEquals(1,player1.getSheilds());
+        game.processPlayerTurn(player1);
+        assertEquals(0,player1.getSheilds());
+        game.processPlayerTurn(player1);
+        assertEquals(0,player1.getSheilds());
+    }
 }

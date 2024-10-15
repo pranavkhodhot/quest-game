@@ -18,6 +18,13 @@ public class Player {
         return hand;
     }
 
+    public int getSheilds() {
+        return -1;
+    }
+
+    public void setSheilds(int sheilds) {
+    }
+
     public int getId() {
         return id;
     }
