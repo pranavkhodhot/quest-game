@@ -606,6 +606,4 @@ public class MainTest {
         currQuest.buildQuest();
         assertEquals(2,currQuest.getStageCards().size());
     }
-
-
 }
