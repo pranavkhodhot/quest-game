@@ -213,6 +213,9 @@ public class Game {
                 currPlayer.setSheilds(currPlayer.getSheilds() - 2);
                 System.out.println("P" + currPlayer.getId() + " now has " + currPlayer.getSheilds() + " shields");
                 break;
+            case "Queens Favor":
+                dealAdventureCards(2, currPlayer.getId());
+                break;
         }
     }
 
