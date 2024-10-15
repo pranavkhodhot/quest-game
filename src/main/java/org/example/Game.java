@@ -23,6 +23,8 @@ public class Game {
         this.commands = new ArrayList<>();
         this.input = new Scanner(System.in);
         this.counter = 0;
+        this.outputs = new ArrayList<>();
+        this.drawnCard = null;
         for(int i=0;i<4;i++){
             this.players.add(new Player(i+1));
         }
@@ -129,6 +131,21 @@ public class Game {
         }
     }
 
+    public Card dealEventCard(){
+        return eventDeck.dealCard();
+    }
+
+    public void logAndPrint(String string){
+        outputs.add(string);
+        System.out.println(string);
+    }
+
+    public void clearScreen() {
+        for(int i=0;i<50;i++){
+            System.out.println();
+        }
+    }
+
     public void discardAdventureCard(Card card){
         adventureDeck.discardCard(card);
     }
@@ -163,14 +180,32 @@ public class Game {
     }
 
     public void processPlayerTurn(Player player) {
+        System.out.println("P" + player.getId() + "'s Turn");
+        checkTrim(player);
+        player.showHand();
 
+        System.out.println("Press [ENTER] to draw");
+        String ignore = getNextCommandOrInput();
+
+        drawnCard = dealEventCard();
+        logAndPrint("P" + player.getId() + " Drew " + drawnCard);
+
+        for (int i=0;i<players.size();i++) {
+            if(checkTrim(players.get(i))){
+                clearScreen();
+            }
+        }
+
+        System.out.println("Press [ENTER] to end your turn");
+        ignore = getNextCommandOrInput();
+        counter++;
     }
 
     public List<String> getOutputs() {
-        return null;
+        return outputs;
     }
 
     public Card getDrawnCard() {
-        return null;
+        return drawnCard;
     }
 }
