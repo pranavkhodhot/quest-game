@@ -373,4 +373,73 @@ public class MainTest {
         assertEquals(86,game.getAdventureDeck().getDeckSize());
         assertEquals(2,game.getAdventureDeck().getDiscardSize());
     }
+    /*------------------------------------RESP-8-----------------------------------------------------------------*/
+    @Test
+    @DisplayName("Check If Player Draws Prosperity Favor than 2 adventure cards will be dealt")
+    public void RESP_08_test_01() {
+        Game game = new Game();
+        Player player1 = game.getPlayer(1);
+        Player player2 = game.getPlayer(2);
+        Player player3 = game.getPlayer(3);
+        Player player4 = game.getPlayer(4);
+
+        game.dealInitialAdventureCards();
+        game.handleEventCard(new Card(Card.CardType.EVENT, "Prosperity", 0),player1);
+        assertEquals(14,player1.getHand().size());
+        assertEquals(14,player2.getHand().size());
+        assertEquals(14, player3.getHand().size());
+        assertEquals(14,player4.getHand().size());
+    }
+
+    @Test
+    @DisplayName("Check If Player Draws Prosperity than 2 adventure cards will be dealt")
+    public void RESP_08_test_02() {
+        Game game = new Game();
+        Player player1 = game.getPlayer(1);
+        Player player2 = game.getPlayer(2);
+        Player player3 = game.getPlayer(3);
+        Player player4 = game.getPlayer(4);
+
+        ArrayList<String> commands = new ArrayList<>();
+        Collections.addAll(commands,"1","1","1","1","1","1","1","1");
+        game.setCommands(commands);
+
+        game.dealInitialAdventureCards();
+        game.handleEventCard(new Card(Card.CardType.EVENT, "Prosperity", 0),player1);
+
+        assertTrue(game.checkTrim(player1));
+        assertTrue(game.checkTrim(player2));
+        assertTrue(game.checkTrim(player3));
+        assertTrue(game.checkTrim(player4));
+
+        assertEquals(12,player1.getHand().size());
+        assertEquals(12,player2.getHand().size());
+        assertEquals(12,player3.getHand().size());
+        assertEquals(12,player4.getHand().size());
+    }
+
+    @Test
+    @DisplayName("Check If Deck and Discard Updates Number of Cards after Prosperity")
+    public void RESP_08_test_03() {
+        Game game = new Game();
+        Player player1 = game.getPlayer(1);
+        Player player2 = game.getPlayer(2);
+        Player player3 = game.getPlayer(3);
+        Player player4 = game.getPlayer(4);
+
+        ArrayList<String> commands = new ArrayList<>();
+        Collections.addAll(commands,"1","1","1","1","1","1","1","1");
+        game.setCommands(commands);
+
+        game.dealInitialAdventureCards();
+        game.handleEventCard(new Card(Card.CardType.EVENT, "Prosperity", 0),player1);
+
+        game.checkTrim(player1);
+        game.checkTrim(player2);
+        game.checkTrim(player3);
+        game.checkTrim(player4);
+
+        assertEquals(44,game.getAdventureDeck().getDeckSize());
+        assertEquals(8,game.getAdventureDeck().getDiscardSize());
+    }
 }
