@@ -1120,4 +1120,5 @@ public class MainTest {
         assertTrue(outputs.contains("Congratulations to P3 for being Knighted!"));
         assertTrue(outputs.contains("Congratulations to P4 for being Knighted!"));
     }
+    
 }

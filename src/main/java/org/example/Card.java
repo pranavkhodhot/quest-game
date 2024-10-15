@@ -26,7 +26,7 @@ public class Card {
     }
 
     public String toString() {
-        if(this.value == 0){
+        if(this.value == 0 || this.name.startsWith("Q")){
             return name;
         }
         return this.name + " : " + this.value;

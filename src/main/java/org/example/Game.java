@@ -240,6 +240,11 @@ public class Game {
         Player sponsor = findQuestSponsor(questStages, currPlayer);
         if (sponsor == null) {
             System.out.println("No sponsors were found, the quest will be discarded");
+        } else {
+            Quest currQuest = new Quest(questStages, sponsor, this);
+            currQuest.buildQuest();
+            List<Player> questResults = currQuest.startQuest();
+            currQuest.finishQuest(questResults);
         }
     }
 
