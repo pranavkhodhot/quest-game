@@ -327,4 +327,50 @@ public class MainTest {
         game.processPlayerTurn(player1);
         assertEquals(0,player1.getSheilds());
     }
+    /*------------------------------------RESP-7-----------------------------------------------------------------*/
+    @Test
+    @DisplayName("Check If Player Draws Queens Favor than 2 adventure cards will be dealt")
+    public void RESP_07_test_01() {
+        Game game = new Game();
+        Player player1 = game.getPlayer(1);
+        game.dealInitialAdventureCards();
+        assertEquals(12,player1.getHand().size());
+        game.handleEventCard(new Card(Card.CardType.EVENT, "Queens Favor", 0),player1);
+        assertEquals(14,player1.getHand().size());
+    }
+
+    @Test
+    @DisplayName("Check If Player Draws Queens Favor than it will Trim player hand back to 12 cards")
+    public void RESP_07_test_02() {
+        Game game = new Game();
+        Player player1 = game.getPlayer(1);
+
+        ArrayList<String> commands = new ArrayList<>();
+        Collections.addAll(commands,"Enter","1","1");
+        game.setCommands(commands);
+
+        game.dealInitialAdventureCards();
+        assertEquals(12,player1.getHand().size());
+        game.handleEventCard(new Card(Card.CardType.EVENT, "Queens Favor", 0),player1);
+        assertEquals(14,player1.getHand().size());
+        boolean isTrimmed = game.checkTrim(player1);
+        assertEquals(12,player1.getHand().size());
+        assertTrue(isTrimmed);
+    }
+
+    @Test
+    @DisplayName("Check If Deck and Discard Updates Number of Cards after Queens Favor")
+    public void RESP_07_test_03() {
+        Game game = new Game();
+        Player player1 = game.getPlayer(1);
+        game.getEventDeck().addCard(new Card(Card.CardType.EVENT, "Queens Favor", 0));
+
+        ArrayList<String> commands = new ArrayList<>();
+        Collections.addAll(commands,"Enter","1","1","Enter");
+        game.setCommands(commands);
+        game.dealAdventureCards(12,1);
+        game.processPlayerTurn(player1);
+        assertEquals(86,game.getAdventureDeck().getDeckSize());
+        assertEquals(2,game.getAdventureDeck().getDiscardSize());
+    }
 }
