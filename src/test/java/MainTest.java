@@ -975,4 +975,29 @@ public class MainTest {
         assertEquals(0,game.getPlayer(3).getSheilds());
         assertEquals(0,game.getPlayer(4).getSheilds());
     }
+    /*------------------------------------RESP-19-----------------------------------------------------------------*/
+    @Test
+    @DisplayName("Check that sponsor draws the correct number of cards after the quest ends")
+    public void RESP_19_test_01() {
+        Game game = new Game();
+        Player sponsor = game.getPlayer(1);
+
+        Quest quest = new Quest(2, sponsor, game);
+        quest.getStageCards().add(new Card(Card.CardType.FOE,"F5",5));
+        quest.getStageCards().add(new Card(Card.CardType.FOE,"F10",10));
+        quest.getStageCards().add(new Card(Card.CardType.FOE,"F15",15));
+        quest.getStageCards().add(new Card(Card.CardType.FOE,"F20",20));
+        quest.getStageCards().add(new Card(Card.CardType.FOE,"F25",25));
+
+        assertEquals(0,sponsor.getHand().size());
+
+        ArrayList<String> commands = new ArrayList<>();
+        Collections.addAll(commands,"Enter");
+        game.setCommands(commands);
+
+        quest.finishQuest(new ArrayList<>());
+        assertEquals(0,quest.getStageCards().size());
+        assertEquals(5,game.getAdventureDeck().getDiscardSize());
+
+    }
 }
