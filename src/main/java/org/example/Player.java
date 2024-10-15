@@ -14,6 +14,7 @@ public class Player {
         this.id = id;
         this.hand = new ArrayList<Card>();
         this.sheilds = 0;
+        this.declinedToParticipate = false;
     }
 
     public void setHand(List<Card> hand) {
@@ -21,11 +22,11 @@ public class Player {
     }
 
     public boolean getDeclinedToParticipate(){
-        return false;
+        return declinedToParticipate;
     }
 
-    public boolean setDeclinedToParticipate(boolean res){
-        return false;
+    public void setDeclinedToParticipate(boolean declinedToParticipate) {
+        this.declinedToParticipate = declinedToParticipate;
     }
 
     public List<Card> getHand() {

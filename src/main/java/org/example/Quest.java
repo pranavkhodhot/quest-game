@@ -41,6 +41,20 @@ public class Quest {
 
     public List<Player> getParticipantsForQuest(Player sponsor) {
         List<Player> participants = new ArrayList<>();
+        for (Player player : game.getPlayers()) {
+            if (player.getId() != sponsor.getId() && !player.getDeclinedToParticipate()) {
+                game.logAndPrint("Would P" + player.getId() + " like to participate? Yes/No");
+                String response = game.getNextCommandOrInput();
+                if (response.equalsIgnoreCase("yes")) {
+                    participants.add(player);
+                    game.logAndPrint("P" + player.getId() + " is participating in the quest!");
+                } else {
+                    game.logAndPrint("P" + player.getId() + " declined to participate.");
+                    player.setDeclinedToParticipate(true);
+                }
+                game.clearScreen();
+            }
+        }
         return participants;
     }
 
