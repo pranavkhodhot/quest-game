@@ -259,5 +259,7 @@ public class Quest {
 
         game.logAndPrint("Sponsor will now regain Cards, Press [ENTER] to begin card redraw");
         String out = game.getNextCommandOrInput();
+        game.dealAdventureCards(numStageCards+stages, sponsor.getId());
+        game.checkTrim(sponsor);
     }
 }
