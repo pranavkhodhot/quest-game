@@ -130,7 +130,8 @@ public class Quest {
     }
 
     public void handleBeginningStage(Player participant){
-
+        game.dealAdventureCards(1, participant.getId());
+        game.checkTrim(participant);
     }
 
     public String cardBuildString(List<Card> build) {
