@@ -8,12 +8,14 @@ public class Quest {
     private Player sponsor;
     private List<Integer> stageValues;
     private List<Card> stageCards;
+    private List<Player> participants;
     private Game game;
 
     public Quest(int stages, Player sponsor, Game game) {
         this.stages = stages;
         this.sponsor = sponsor;
         this.game = game;
+        this.participants = new ArrayList<>();
         this.stageValues = new ArrayList<>();
         this.stageCards = new ArrayList<>();
     }
@@ -161,7 +163,6 @@ public class Quest {
                 } else {
                     attackCards.add(chosenCard);
                     attackValue += chosenCard.getValue();
-                    game.discardAdventureCard(participant.getHand().remove(cardPos - 1));
                 }
             } catch (NumberFormatException | IndexOutOfBoundsException e) {
                 game.logAndPrint("Invalid input. Please try again.");
@@ -171,14 +172,65 @@ public class Quest {
     }
 
     public List<Integer> getStageValues() {
-        return null;
+        return stageValues;
     }
 
-    public List<Player> startQuest(){
-        return null;
+    public List<Player> startQuest() {
+        List<Player> successfulParticipants = new ArrayList<>();
+        int currentStage = 1;
+        while (currentStage <= stages) {
+            participants = getParticipantsForQuest(sponsor);
+            if (participants.isEmpty()) {
+                game.logAndPrint("No Participants Left");
+                break;
+            }
+            game.logAndPrint("Stage " + currentStage + " begins!");
+            for (int i = 0; i < participants.size(); i++) {
+                Player currParticipant = participants.get(i);
+                game.logAndPrint("P" + currParticipant.getId() + " will build an attack");
+
+                if (!buildAndResolveAttack(currParticipant, currentStage)) {
+                    currParticipant.setDeclinedToParticipate(true);
+                    participants.remove(i);
+                    i--;
+                } else if (currentStage == stages) {
+                    successfulParticipants.add(currParticipant);
+                }
+            }
+            currentStage++;
+        }
+        return successfulParticipants;
     }
     public boolean buildAndResolveAttack(Player participant, int currentStage) {
-        return false;
+        handleBeginningStage(participant);
+
+        List<Card> attackCards = buildAttack(participant);
+        int attackValue = calculateAttackValue(attackCards);
+
+        int stageDifficulty = stageValues.get(currentStage);
+        if (attackValue >= stageDifficulty) {
+            game.clearScreen();
+            game.logAndPrint("P" + participant.getId() + " succeeded in Stage " + currentStage + "!");
+            game.logAndPrint("Press [ENTER] to end Attack Phase!");
+            game.getNextCommandOrInput();
+            game.clearScreen();
+            return true;
+        } else {
+            game.clearScreen();
+            game.logAndPrint("P" + participant.getId() + " failed in Stage " + currentStage + " and is eliminated.");
+            game.logAndPrint("Press [ENTER] to end Attack Phase!");
+            game.getNextCommandOrInput();
+            game.clearScreen();
+            return false;
+        }
+    }
+
+    public int calculateAttackValue(List<Card> attackCards) {
+        int val = 0;
+        for(int i=0;i<attackCards.size();i++){
+            val += attackCards.get(i).getValue();
+        }
+        return val;
     }
 
     public String cardBuildString(List<Card> build) {
