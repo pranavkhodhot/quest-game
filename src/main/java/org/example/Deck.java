@@ -56,4 +56,12 @@ public class Deck {
             System.out.println(this.getDeckCard(i).toString());
         }
     }
+
+    public Card dealCard(){
+       return null;
+    }
+
+    public void discardCard(Card card){
+        discard.add(card);
+    }
 }

@@ -1,5 +1,4 @@
-import org.example.Game;
-import org.example.Card;
+import org.example.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
 import static org.junit.jupiter.api.Assertions.*;
@@ -112,5 +111,70 @@ public class MainTest {
         game.shuffleEventDeck();
         List<Card> shuffledDeck = game.getEventDeck().getDeckCards();
         assertFalse(originalDeck.equals(shuffledDeck));
+    }
+
+    /*------------------------------------RESP-2-----------------------------------------------------------------*/
+
+    @Test
+    @DisplayName("Check Each Player Exists")
+    public void RESP_02_test_01() {
+        Game game = new Game();
+        assertNotNull(game.getPlayer(1));
+        assertNotNull(game.getPlayer(2));
+        assertNotNull(game.getPlayer(3));
+        assertNotNull(game.getPlayer(4));
+    }
+    @Test
+    @DisplayName("Check Each Player Has 12 Cards Each and Deck has 42 Cards")
+    public void RESP_02_test_02() {
+        Game game = new Game();
+        game.dealAdventureCards(12,1);
+        game.dealAdventureCards(12,2);
+        game.dealAdventureCards(12,3);
+        game.dealAdventureCards(12,4);
+
+        assertEquals(12,game.getPlayer(1).getHand().size());
+        assertEquals(12,game.getPlayer(2).getHand().size());
+        assertEquals(12,game.getPlayer(3).getHand().size());
+        assertEquals(12,game.getPlayer(4).getHand().size());
+
+        assertEquals(game.getAdventureDeck().getDeckSize(),52);
+    }
+    @Test
+    @DisplayName("Check Player Hand Is In Sorted Order")
+    public void RESP_02_test_03() {
+        Game game = new Game();
+        game.dealAdventureCards(12,1);
+        game.shuffleAdventureDeck();
+        List<Card> hand = game.getPlayer(1).getHand();
+        int adventureCardStart = 0;
+        boolean foundError = false;
+        for(int i=1;i<hand.size();i++){
+            if(hand.get(i).getCardType() == Card.CardType.WEAPON){
+                adventureCardStart = i;
+                break;
+            }
+            foundError = hand.get(i - 1).getValue() < hand.get(i).getValue();
+            assertFalse(foundError);
+        }
+        for(int i=adventureCardStart;i< hand.size();i++){
+            foundError = hand.get(i - 1).getValue() > hand.get(i).getValue();
+            assertFalse(foundError);
+        }
+    }
+
+    @Test
+    @DisplayName("Check Adventure Deck Is Rebuilt using Discarded Cards")
+    public void RESP_02_test_04() {
+        Game game = new Game();
+        Player player1 = game.getPlayer(1);
+        game.dealAdventureCards(100,1);
+        for(int i=0;i<100;i++){
+            game.discardAdventureCard(player1.getHand().removeFirst());
+        }
+        assertEquals(0,game.getAdventureDeck().getDeckSize());
+        System.out.println(game.getAdventureDeck().getDeckSize());
+        game.dealAdventureCards(1,1);
+        assertEquals(99, game.getAdventureDeck().getDeckSize());
     }
 }

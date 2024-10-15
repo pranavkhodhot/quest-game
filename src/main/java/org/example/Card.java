@@ -32,4 +32,7 @@ public class Card {
         return this.name + " : " + this.value;
     }
 
+    public CardType getCardType() {
+        return null;
+    }
 }

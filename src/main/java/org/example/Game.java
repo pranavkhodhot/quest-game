@@ -1,12 +1,17 @@
 package org.example;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Game {
     private Deck adventureDeck;
     private Deck eventDeck;
+    private List<Player> players;
 
     public Game() {
         adventureDeck = new Deck();
         eventDeck = new Deck();
+        this.players = new ArrayList<>();
         setupAdventureDeck();
         setupEventDeck();
     }
@@ -64,5 +69,15 @@ public class Game {
         }
     }
 
+    public Player getPlayer(int id){
+        return null;
+    }
 
+    public void dealAdventureCards(int amount, int id){
+
+    }
+
+    public void discardAdventureCard(Card card){
+
+    }
 }
