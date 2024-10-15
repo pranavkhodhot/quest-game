@@ -194,6 +194,8 @@ public class Game {
 
         if (drawnCard.getCardType() == Card.CardType.EVENT) {
             handleEventCard(drawnCard, player);
+        } else {
+            handleQuestCard(drawnCard, player);
         }
 
         for (int i=0;i<players.size();i++) {
@@ -224,7 +226,31 @@ public class Game {
         }
     }
 
+    private void handleQuestCard(Card questCard, Player currPlayer) {
+        int questStages = Integer.parseInt(questCard.getName().substring(1));
+        Player sponsor = findQuestSponsor(questStages, currPlayer);
+        if (sponsor == null) {
+            System.out.println("No sponsors were found, the quest will be discarded");
+        }
+    }
+
     public Player findQuestSponsor(int questStages, Player currentPlayer) {
+        for (int i = 0; i < players.size(); i++) {
+            int askedPlayerId = ((currentPlayer.getId() - 1 + i) % players.size()) + 1;
+            Player askedPlayer = this.getPlayer(askedPlayerId);
+            if (askedPlayer.ableToSponsor(questStages)) {
+                logAndPrint("Would P" + askedPlayer.getId() + " like to sponsor the quest Q" + questStages + "? Yes/No");
+                String response = getNextCommandOrInput();
+                if (response.equalsIgnoreCase("yes")) {
+                    System.out.println("P" + askedPlayer.getId() + " is sponsoring the quest!");
+                    return askedPlayer;
+                } else {
+                    System.out.println("P" + askedPlayer.getId() + " declined to sponsor the quest.");
+                }
+            } else {
+                System.out.println("P" + askedPlayer.getId() + " is not eligible to sponsor");
+            }
+        }
         return null;
     }
 

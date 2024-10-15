@@ -86,4 +86,14 @@ public class Player {
         }
         System.out.println("\n");
     }
+
+    public boolean ableToSponsor(int stages){
+        int numFoeCards = 0;
+        for(int i=0;i<hand.size();i++){
+            if(hand.get(i).getCardType() == Card.CardType.FOE){
+                numFoeCards++;
+            }
+        }
+        return numFoeCards >= stages;
+    }
 }
