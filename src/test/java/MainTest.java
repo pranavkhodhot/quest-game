@@ -563,6 +563,49 @@ public class MainTest {
         game.processPlayerTurn(player1);
         assertEquals(1,game.getEventDeck().getDiscardSize());
     }
+    /*------------------------------------RESP-11-----------------------------------------------------------------*/
+    @Test
+    @DisplayName("Check if sponsor is prompted to set up stages")
+    public void RESP_11_test_01() {
+        Game game = new Game();
+        Player sponsor = game.getPlayer(1);
+        List<Card> sponsorHand = new ArrayList<>();
+        Collections.addAll(sponsorHand,new Card(Card.CardType.FOE,"F5",5),new Card(Card.CardType.FOE,"F10",10));
+        sponsor.setHand(sponsorHand);
+
+        Quest currQuest = new Quest(2,sponsor,game);
+
+        ArrayList<String> commands = new ArrayList<>();
+        Collections.addAll(commands,"1","Quit","1","Quit","Enter");
+
+        game.setCommands(commands);
+
+        List<String> outputs = game.getOutputs();
+        currQuest.buildQuest();
+
+        assertTrue(outputs.contains("P1 Will Begin the Stage Building Process"));
+        assertTrue(outputs.contains("Select the position of the card to include in Stage #1 or enter Quit to stop building stage"));
+    }
+
+    @Test
+    @DisplayName("Check if sponsor is able to setup stage cards")
+    public void RESP_11_test_02() {
+        Game game = new Game();
+        Player sponsor = game.getPlayer(1);
+        List<Card> sponsorHand = new ArrayList<>();
+        Collections.addAll(sponsorHand,new Card(Card.CardType.FOE,"F5",5),new Card(Card.CardType.FOE,"F10",10));
+        sponsor.setHand(sponsorHand);
+
+        Quest currQuest = new Quest(2,sponsor,game);
+
+        ArrayList<String> commands = new ArrayList<>();
+        Collections.addAll(commands,"1","Quit","1","Quit","Enter");
+
+        game.setCommands(commands);
+        assertEquals(0,currQuest.getStageCards().size());
+        currQuest.buildQuest();
+        assertEquals(2,currQuest.getStageCards().size());
+    }
 
 
 }

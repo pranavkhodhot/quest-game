@@ -14,6 +14,10 @@ public class Player {
         this.sheilds = 0;
     }
 
+    public void setHand(List<Card> hand) {
+
+    }
+
     public List<Card> getHand() {
         return hand;
     }
