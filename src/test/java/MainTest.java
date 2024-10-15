@@ -529,4 +529,40 @@ public class MainTest {
         assertNotNull(currSponsor);
         assertEquals(3, currSponsor.getId());
     }
+    /*------------------------------------RESP-10-----------------------------------------------------------------*/
+    @Test
+    @DisplayName("Check if all players have declined sponsorship")
+    public void RESP_10_test_01() {
+        Game game = new Game();
+        game.getEventDeck().addCard(new Card(Card.CardType.QUEST, "Q2", 2));
+        game.shuffleAdventureDeck();
+        game.dealInitialAdventureCards();
+
+        ArrayList<String> commands = new ArrayList<>();
+        Collections.addAll(commands,"No","No","No","No","End Turn");
+        game.setCommands(commands);
+
+        Player player1 = game.getPlayer(1);
+        Player res = game.findQuestSponsor(3,player1);
+        assertNull(res);
+    }
+
+    @Test
+    @DisplayName("Check if quest is discarded if all players decline to sponsor")
+    public void RESP_10_test_02() {
+        Game game = new Game();
+        game.shuffleAdventureDeck();
+        game.getEventDeck().addCard(new Card(Card.CardType.QUEST, "Q2", 2));
+        game.dealInitialAdventureCards();
+
+        ArrayList<String> commands = new ArrayList<>();
+        Collections.addAll(commands,"Draw","No","No","No","No","End Turn");
+        game.setCommands(commands);
+
+        Player player1 = game.getPlayer(1);
+        game.processPlayerTurn(player1);
+        assertEquals(1,game.getEventDeck().getDiscardSize());
+    }
+
+
 }
