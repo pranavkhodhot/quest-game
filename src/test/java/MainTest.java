@@ -765,4 +765,67 @@ public class MainTest {
         currQuest.handleBeginningStage(game.getPlayer(2));
         assertFalse(originalHand.equals(player.getHand()));
     }
+    /*------------------------------------RESP-15-----------------------------------------------------------------*/
+    @Test
+    @DisplayName("Check if Game prompts participants to set up attack")
+    public void RESP_15_test_01() {
+        Game game = new Game();
+        Player sponsor = game.getPlayer(1);
+        Player player = game.getPlayer(2);
+        game.getPlayer(2).addCard(new Card(Card.CardType.WEAPON,"E",30));
+
+        Quest currQuest = new Quest(2,sponsor,game);
+        ArrayList<String> commands = new ArrayList<>();
+        Collections.addAll(commands,"1","Quit");
+        game.setCommands(commands);
+
+        List<String> outputs = game.getOutputs();
+
+        currQuest.buildAttack(player);
+        assertTrue(outputs.contains("Select the position of the card to include in your attack or type 'Quit' when finished"));
+    }
+
+    @Test
+    @DisplayName("Check if Game validates attacks (Player Chooses Foe Card")
+    public void RESP_15_test_02() {
+        Game game = new Game();
+        Player sponsor = game.getPlayer(1);
+        Player player = game.getPlayer(2);
+        game.getPlayer(2).addCard(new Card(Card.CardType.WEAPON,"E",30));
+        game.getPlayer(2).addCard(new Card(Card.CardType.FOE,"F5",5));
+
+
+        Quest currQuest = new Quest(2,sponsor,game);
+        ArrayList<String> commands = new ArrayList<>();
+        Collections.addAll(commands,"1","2","Quit");
+        game.setCommands(commands);
+
+        List<String> outputs = game.getOutputs();
+
+        currQuest.buildAttack(player);
+        assertTrue(outputs.contains("Cannot use FOE card in attack"));
+    }
+
+    @Test
+    @DisplayName("Check if Game validates attacks (Player Chooses Repeated Card")
+    public void RESP_15_test_03() {
+        Game game = new Game();
+        Player sponsor = game.getPlayer(1);
+        Player player = game.getPlayer(2);
+        game.getPlayer(2).addCard(new Card(Card.CardType.WEAPON,"D",5));
+        game.getPlayer(2).addCard(new Card(Card.CardType.WEAPON,"E",30));
+        game.getPlayer(2).addCard(new Card(Card.CardType.WEAPON,"E",30));
+
+
+        Quest currQuest = new Quest(2,sponsor,game);
+        ArrayList<String> commands = new ArrayList<>();
+        Collections.addAll(commands,"2","2","1","Quit");
+        game.setCommands(commands);
+
+        List<String> outputs = game.getOutputs();
+
+        currQuest.buildAttack(player);
+        assertTrue(outputs.contains("You cannot use the same card twice"));
+    }
+
 }
