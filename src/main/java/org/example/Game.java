@@ -12,6 +12,9 @@ public class Game {
         adventureDeck = new Deck();
         eventDeck = new Deck();
         this.players = new ArrayList<>();
+        for(int i=0;i<4;i++){
+            this.players.add(new Player(i+1));
+        }
         setupAdventureDeck();
         setupEventDeck();
     }
@@ -70,14 +73,19 @@ public class Game {
     }
 
     public Player getPlayer(int id){
+        if(id >= 0 && id<=players.size()){
+            return this.players.get(id-1);
+        }
         return null;
     }
 
     public void dealAdventureCards(int amount, int id){
-
+        for(int i=0;i<amount;i++){
+            this.getPlayer(id).addCard(adventureDeck.dealCard());
+        }
     }
 
     public void discardAdventureCard(Card card){
-
+        adventureDeck.discardCard(card);
     }
 }

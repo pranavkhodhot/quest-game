@@ -58,7 +58,14 @@ public class Deck {
     }
 
     public Card dealCard(){
-       return null;
+        if(!deck.isEmpty()){
+            return deck.removeLast();
+        } else {
+            deck = new ArrayList<>(discard);
+            discard.clear();
+            shuffle();
+            return deck.removeLast();
+        }
     }
 
     public void discardCard(Card card){
