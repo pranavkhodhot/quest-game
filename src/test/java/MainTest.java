@@ -46,12 +46,12 @@ public class MainTest {
 
         HashMap<String, Integer> actualFrequencies = new HashMap<>();
 
-        for (int i = 0;i<adventureDeck.size();i++) {
+        for (int i = 0; i < adventureDeck.size(); i++) {
             String cardName = adventureDeck.get(i).getName();
-            if(!actualFrequencies.containsKey(cardName)){
-                actualFrequencies.put(cardName,1);
+            if (!actualFrequencies.containsKey(cardName)) {
+                actualFrequencies.put(cardName, 1);
             } else {
-                actualFrequencies.put(cardName,actualFrequencies.get(cardName) + 1);
+                actualFrequencies.put(cardName, actualFrequencies.get(cardName) + 1);
             }
         }
         expectedFrequencies.forEach((cardType, expectedCount) -> {
@@ -78,12 +78,12 @@ public class MainTest {
 
         HashMap<String, Integer> actualFrequencies = new HashMap<>();
 
-        for (int i = 0;i<eventDeck.size();i++) {
+        for (int i = 0; i < eventDeck.size(); i++) {
             String cardName = eventDeck.get(i).getName();
-            if(!actualFrequencies.containsKey(cardName)){
-                actualFrequencies.put(cardName,1);
+            if (!actualFrequencies.containsKey(cardName)) {
+                actualFrequencies.put(cardName, 1);
             } else {
-                actualFrequencies.put(cardName,actualFrequencies.get(cardName) + 1);
+                actualFrequencies.put(cardName, actualFrequencies.get(cardName) + 1);
             }
         }
 
@@ -124,40 +124,42 @@ public class MainTest {
         assertNotNull(game.getPlayer(3));
         assertNotNull(game.getPlayer(4));
     }
+
     @Test
     @DisplayName("Check Each Player Has 12 Cards Each and Deck has 42 Cards")
     public void RESP_02_test_02() {
         Game game = new Game();
-        game.dealAdventureCards(12,1);
-        game.dealAdventureCards(12,2);
-        game.dealAdventureCards(12,3);
-        game.dealAdventureCards(12,4);
+        game.dealAdventureCards(12, 1);
+        game.dealAdventureCards(12, 2);
+        game.dealAdventureCards(12, 3);
+        game.dealAdventureCards(12, 4);
 
-        assertEquals(12,game.getPlayer(1).getHand().size());
-        assertEquals(12,game.getPlayer(2).getHand().size());
-        assertEquals(12,game.getPlayer(3).getHand().size());
-        assertEquals(12,game.getPlayer(4).getHand().size());
+        assertEquals(12, game.getPlayer(1).getHand().size());
+        assertEquals(12, game.getPlayer(2).getHand().size());
+        assertEquals(12, game.getPlayer(3).getHand().size());
+        assertEquals(12, game.getPlayer(4).getHand().size());
 
-        assertEquals(game.getAdventureDeck().getDeckSize(),52);
+        assertEquals(game.getAdventureDeck().getDeckSize(), 52);
     }
+
     @Test
     @DisplayName("Check Player Hand Is In Sorted Order")
     public void RESP_02_test_03() {
         Game game = new Game();
-        game.dealAdventureCards(12,1);
+        game.dealAdventureCards(12, 1);
         game.shuffleAdventureDeck();
         List<Card> hand = game.getPlayer(1).getHand();
         int adventureCardStart = 0;
         boolean foundError = false;
-        for(int i=1;i<hand.size();i++){
-            if(hand.get(i).getCardType() == Card.CardType.WEAPON){
+        for (int i = 1; i < hand.size(); i++) {
+            if (hand.get(i).getCardType() == Card.CardType.WEAPON) {
                 adventureCardStart = i;
                 break;
             }
             foundError = hand.get(i - 1).getValue() < hand.get(i).getValue();
             assertFalse(foundError);
         }
-        for(int i=adventureCardStart;i< hand.size();i++){
+        for (int i = adventureCardStart; i < hand.size(); i++) {
             foundError = hand.get(i - 1).getValue() > hand.get(i).getValue();
             assertFalse(foundError);
         }
@@ -168,35 +170,37 @@ public class MainTest {
     public void RESP_02_test_04() {
         Game game = new Game();
         Player player1 = game.getPlayer(1);
-        game.dealAdventureCards(100,1);
-        for(int i=0;i<100;i++){
+        game.dealAdventureCards(100, 1);
+        for (int i = 0; i < 100; i++) {
             game.discardAdventureCard(player1.getHand().removeFirst());
         }
-        assertEquals(0,game.getAdventureDeck().getDeckSize());
+        assertEquals(0, game.getAdventureDeck().getDeckSize());
         System.out.println(game.getAdventureDeck().getDeckSize());
-        game.dealAdventureCards(1,1);
+        game.dealAdventureCards(1, 1);
         assertEquals(99, game.getAdventureDeck().getDeckSize());
     }
+
     /*------------------------------------RESP-3-----------------------------------------------------------------*/
     @Test
     @DisplayName("Check Each Player Plays their Turn In Order of P1-P4 back to P1")
     public void RESP_03_test_01() {
         Game game = new Game();
         game.setCurrPlayer(game.getNextPlayer(game.getCounter()));
-        assertEquals(1,game.getCurrPlayer().getId());
-        game.setCounter(game.getCounter()+1);
+        assertEquals(1, game.getCurrPlayer().getId());
+        game.setCounter(game.getCounter() + 1);
         game.setCurrPlayer(game.getNextPlayer(game.getCounter()));
-        assertEquals(2,game.getCurrPlayer().getId());
-        game.setCounter(game.getCounter()+1);
+        assertEquals(2, game.getCurrPlayer().getId());
+        game.setCounter(game.getCounter() + 1);
         game.setCurrPlayer(game.getNextPlayer(game.getCounter()));
-        assertEquals(3,game.getCurrPlayer().getId());
-        game.setCounter(game.getCounter()+1);
+        assertEquals(3, game.getCurrPlayer().getId());
+        game.setCounter(game.getCounter() + 1);
         game.setCurrPlayer(game.getNextPlayer(game.getCounter()));
-        assertEquals(4,game.getCurrPlayer().getId());
-        game.setCounter(game.getCounter()+1);
+        assertEquals(4, game.getCurrPlayer().getId());
+        game.setCounter(game.getCounter() + 1);
         game.setCurrPlayer(game.getNextPlayer(game.getCounter()));
-        assertEquals(1,game.getCurrPlayer().getId());
+        assertEquals(1, game.getCurrPlayer().getId());
     }
+
     /*------------------------------------RESP-4-----------------------------------------------------------------*/
     @Test
     @DisplayName("Check Trim Function Will Prompt to Trim Hand if Over 12")
@@ -206,7 +210,7 @@ public class MainTest {
         commands.add("1");
         game.setCommands(commands);
         game.dealInitialAdventureCards();
-        game.dealAdventureCards(1,1);
+        game.dealAdventureCards(1, 1);
         boolean res = game.checkTrim(game.getPlayer(1));
         assertTrue(res);
     }
@@ -230,11 +234,11 @@ public class MainTest {
         commands.add("1");
         game.setCommands(commands);
         game.dealInitialAdventureCards();
-        assertEquals(12,game.getPlayer(1).getHand().size());
-        game.dealAdventureCards(1,1);
-        assertEquals(13,game.getPlayer(1).getHand().size());
+        assertEquals(12, game.getPlayer(1).getHand().size());
+        game.dealAdventureCards(1, 1);
+        assertEquals(13, game.getPlayer(1).getHand().size());
         game.checkTrim(game.getPlayer(1));
-        assertEquals(12,game.getPlayer(1).getHand().size());
+        assertEquals(12, game.getPlayer(1).getHand().size());
     }
 
     @Test
@@ -245,11 +249,12 @@ public class MainTest {
         commands.add("1");
         game.setCommands(commands);
         game.dealInitialAdventureCards();
-        game.getPlayer(1).addCard(new Card(Card.CardType.FOE,"F5",10));
+        game.getPlayer(1).addCard(new Card(Card.CardType.FOE, "F5", 10));
         game.checkTrim(game.getPlayer(1));
-        assertEquals(1,game.getAdventureDeck().getDiscardSize());
-        assertEquals("F5",game.getAdventureDeck().getDiscardCards().getFirst().getName());
+        assertEquals(1, game.getAdventureDeck().getDiscardSize());
+        assertEquals("F5", game.getAdventureDeck().getDiscardCards().getFirst().getName());
     }
+
     /*------------------------------------RESP-5-----------------------------------------------------------------*/
     @Test
     @DisplayName("Check If Player Has Drawn Event Card")
@@ -258,11 +263,11 @@ public class MainTest {
         game.getEventDeck().addCard(new Card(Card.CardType.EVENT, "Plague", 0));
         Player player1 = game.getPlayer(1);
         ArrayList<String> commands = new ArrayList<>();
-        Collections.addAll(commands,"1","Enter");
+        Collections.addAll(commands, "1", "Enter");
         game.setCommands(commands);
         game.processPlayerTurn(player1);
         assertNotNull(game.getDrawnCard());
-        assertEquals("Plague",game.getDrawnCard().getName());
+        assertEquals("Plague", game.getDrawnCard().getName());
     }
 
     @Test
@@ -270,13 +275,13 @@ public class MainTest {
     public void RESP_05_test_02() {
         Game game = new Game();
         game.getEventDeck().addCard(new Card(Card.CardType.EVENT, "Plague", 0));
-        assertEquals(18,game.getEventDeck().getDeckSize());
+        assertEquals(18, game.getEventDeck().getDeckSize());
         Player player1 = game.getPlayer(1);
         ArrayList<String> commands = new ArrayList<>();
-        Collections.addAll(commands,"1","Enter");
+        Collections.addAll(commands, "1", "Enter");
         game.setCommands(commands);
         game.processPlayerTurn(player1);
-        assertEquals(17,game.getEventDeck().getDeckSize());
+        assertEquals(17, game.getEventDeck().getDeckSize());
     }
 
     @Test
@@ -286,12 +291,13 @@ public class MainTest {
         game.getEventDeck().addCard(new Card(Card.CardType.EVENT, "Plague", 0));
         Player player1 = game.getPlayer(1);
         ArrayList<String> commands = new ArrayList<>();
-        Collections.addAll(commands,"1","Enter");
+        Collections.addAll(commands, "1", "Enter");
         game.setCommands(commands);
         game.processPlayerTurn(player1);
         List<String> output = game.getOutputs();
         assertTrue(output.contains("P1 Drew Plague"));
     }
+
     /*------------------------------------RESP-6-----------------------------------------------------------------*/
     @Test
     @DisplayName("Check If player loses 2 shields when the Plague card is drawn")
@@ -301,11 +307,11 @@ public class MainTest {
         Player player1 = game.getPlayer(1);
         player1.setSheilds(5);
         ArrayList<String> commands = new ArrayList<>();
-        Collections.addAll(commands,"1","Enter");
+        Collections.addAll(commands, "1", "Enter");
         game.setCommands(commands);
-        assertEquals(5,player1.getSheilds());
+        assertEquals(5, player1.getSheilds());
         game.processPlayerTurn(player1);
-        assertEquals(3,player1.getSheilds());
+        assertEquals(3, player1.getSheilds());
 
     }
 
@@ -319,14 +325,15 @@ public class MainTest {
         Player player1 = game.getPlayer(1);
         player1.setSheilds(1);
         ArrayList<String> commands = new ArrayList<>();
-        Collections.addAll(commands,"1","Enter","1","Enter");
+        Collections.addAll(commands, "1", "Enter", "1", "Enter");
         game.setCommands(commands);
-        assertEquals(1,player1.getSheilds());
+        assertEquals(1, player1.getSheilds());
         game.processPlayerTurn(player1);
-        assertEquals(0,player1.getSheilds());
+        assertEquals(0, player1.getSheilds());
         game.processPlayerTurn(player1);
-        assertEquals(0,player1.getSheilds());
+        assertEquals(0, player1.getSheilds());
     }
+
     /*------------------------------------RESP-7-----------------------------------------------------------------*/
     @Test
     @DisplayName("Check If Player Draws Queens Favor than 2 adventure cards will be dealt")
@@ -334,9 +341,9 @@ public class MainTest {
         Game game = new Game();
         Player player1 = game.getPlayer(1);
         game.dealInitialAdventureCards();
-        assertEquals(12,player1.getHand().size());
-        game.handleEventCard(new Card(Card.CardType.EVENT, "Queens Favor", 0),player1);
-        assertEquals(14,player1.getHand().size());
+        assertEquals(12, player1.getHand().size());
+        game.handleEventCard(new Card(Card.CardType.EVENT, "Queens Favor", 0), player1);
+        assertEquals(14, player1.getHand().size());
     }
 
     @Test
@@ -346,15 +353,15 @@ public class MainTest {
         Player player1 = game.getPlayer(1);
 
         ArrayList<String> commands = new ArrayList<>();
-        Collections.addAll(commands,"Enter","1","1");
+        Collections.addAll(commands, "Enter", "1", "1");
         game.setCommands(commands);
 
         game.dealInitialAdventureCards();
-        assertEquals(12,player1.getHand().size());
-        game.handleEventCard(new Card(Card.CardType.EVENT, "Queens Favor", 0),player1);
-        assertEquals(14,player1.getHand().size());
+        assertEquals(12, player1.getHand().size());
+        game.handleEventCard(new Card(Card.CardType.EVENT, "Queens Favor", 0), player1);
+        assertEquals(14, player1.getHand().size());
         boolean isTrimmed = game.checkTrim(player1);
-        assertEquals(12,player1.getHand().size());
+        assertEquals(12, player1.getHand().size());
         assertTrue(isTrimmed);
     }
 
@@ -366,13 +373,14 @@ public class MainTest {
         game.getEventDeck().addCard(new Card(Card.CardType.EVENT, "Queens Favor", 0));
 
         ArrayList<String> commands = new ArrayList<>();
-        Collections.addAll(commands,"Enter","1","1","Enter");
+        Collections.addAll(commands, "Enter", "1", "1", "Enter");
         game.setCommands(commands);
-        game.dealAdventureCards(12,1);
+        game.dealAdventureCards(12, 1);
         game.processPlayerTurn(player1);
-        assertEquals(86,game.getAdventureDeck().getDeckSize());
-        assertEquals(2,game.getAdventureDeck().getDiscardSize());
+        assertEquals(86, game.getAdventureDeck().getDeckSize());
+        assertEquals(2, game.getAdventureDeck().getDiscardSize());
     }
+
     /*------------------------------------RESP-8-----------------------------------------------------------------*/
     @Test
     @DisplayName("Check If Player Draws Prosperity Favor than 2 adventure cards will be dealt")
@@ -384,11 +392,11 @@ public class MainTest {
         Player player4 = game.getPlayer(4);
 
         game.dealInitialAdventureCards();
-        game.handleEventCard(new Card(Card.CardType.EVENT, "Prosperity", 0),player1);
-        assertEquals(14,player1.getHand().size());
-        assertEquals(14,player2.getHand().size());
+        game.handleEventCard(new Card(Card.CardType.EVENT, "Prosperity", 0), player1);
+        assertEquals(14, player1.getHand().size());
+        assertEquals(14, player2.getHand().size());
         assertEquals(14, player3.getHand().size());
-        assertEquals(14,player4.getHand().size());
+        assertEquals(14, player4.getHand().size());
     }
 
     @Test
@@ -401,21 +409,21 @@ public class MainTest {
         Player player4 = game.getPlayer(4);
 
         ArrayList<String> commands = new ArrayList<>();
-        Collections.addAll(commands,"1","1","1","1","1","1","1","1");
+        Collections.addAll(commands, "1", "1", "1", "1", "1", "1", "1", "1");
         game.setCommands(commands);
 
         game.dealInitialAdventureCards();
-        game.handleEventCard(new Card(Card.CardType.EVENT, "Prosperity", 0),player1);
+        game.handleEventCard(new Card(Card.CardType.EVENT, "Prosperity", 0), player1);
 
         assertTrue(game.checkTrim(player1));
         assertTrue(game.checkTrim(player2));
         assertTrue(game.checkTrim(player3));
         assertTrue(game.checkTrim(player4));
 
-        assertEquals(12,player1.getHand().size());
-        assertEquals(12,player2.getHand().size());
-        assertEquals(12,player3.getHand().size());
-        assertEquals(12,player4.getHand().size());
+        assertEquals(12, player1.getHand().size());
+        assertEquals(12, player2.getHand().size());
+        assertEquals(12, player3.getHand().size());
+        assertEquals(12, player4.getHand().size());
     }
 
     @Test
@@ -428,18 +436,97 @@ public class MainTest {
         Player player4 = game.getPlayer(4);
 
         ArrayList<String> commands = new ArrayList<>();
-        Collections.addAll(commands,"1","1","1","1","1","1","1","1");
+        Collections.addAll(commands, "1", "1", "1", "1", "1", "1", "1", "1");
         game.setCommands(commands);
 
         game.dealInitialAdventureCards();
-        game.handleEventCard(new Card(Card.CardType.EVENT, "Prosperity", 0),player1);
+        game.handleEventCard(new Card(Card.CardType.EVENT, "Prosperity", 0), player1);
 
         game.checkTrim(player1);
         game.checkTrim(player2);
         game.checkTrim(player3);
         game.checkTrim(player4);
 
-        assertEquals(44,game.getAdventureDeck().getDeckSize());
-        assertEquals(8,game.getAdventureDeck().getDiscardSize());
+        assertEquals(44, game.getAdventureDeck().getDeckSize());
+        assertEquals(8, game.getAdventureDeck().getDiscardSize());
+    }
+
+    /*------------------------------------RESP-9-----------------------------------------------------------------*/
+    @Test
+    @DisplayName("Check If game identifies a quest and prompts for the Current Player to sponsor")
+    public void RESP_09_test_01() {
+        Game game = new Game();
+        game.getEventDeck().addCard(new Card(Card.CardType.QUEST, "Q2", 2));
+        game.shuffleAdventureDeck();
+        game.dealInitialAdventureCards();
+
+        ArrayList<String> commands = new ArrayList<>();
+        Collections.addAll(commands, "Enter", "No", "No", "No", "No", "End Turn");
+        game.setCommands(commands);
+
+        Player player1 = game.getPlayer(1);
+        game.processPlayerTurn(player1);
+        List<String> outputs = game.getOutputs();
+
+        assertTrue(outputs.contains("Would P1 like to sponsor the quest Q2? Yes/No"));
+    }
+
+    @Test
+    @DisplayName("Check If game identifies a quest and prompts for the Current Player to sponsor (in which they decline) it goes onto next person")
+    public void RESP_09_test_02() {
+        Game game = new Game();
+        game.getEventDeck().addCard(new Card(Card.CardType.QUEST, "Q2", 2));
+        game.shuffleAdventureDeck();
+        game.dealInitialAdventureCards();
+
+        ArrayList<String> commands = new ArrayList<>();
+        Collections.addAll(commands, "Enter", "No", "No", "No", "No", "End Turn");
+        game.setCommands(commands);
+
+        Player player1 = game.getPlayer(1);
+        game.processPlayerTurn(player1);
+        List<String> outputs = game.getOutputs();
+        assertTrue(outputs.contains("Would P1 like to sponsor the quest Q2? Yes/No"));
+        assertEquals("Would P2 like to sponsor the quest Q2? Yes/No", outputs.get(outputs.indexOf("Would P1 like to sponsor the quest Q2? Yes/No") + 1));
+    }
+
+    @Test
+    @DisplayName("Check If the sponsorship prompt goes through all the players")
+    public void RESP_09_test_03() {
+        Game game = new Game();
+        game.getEventDeck().addCard(new Card(Card.CardType.QUEST, "Q2", 2));
+        game.shuffleAdventureDeck();
+        game.dealInitialAdventureCards();
+
+        ArrayList<String> commands = new ArrayList<>();
+        Collections.addAll(commands, "Enter", "No", "No", "No", "No", "End Turn");
+        game.setCommands(commands);
+
+        Player player1 = game.getPlayer(1);
+        game.processPlayerTurn(player1);
+        List<String> outputs = game.getOutputs();
+
+        assertTrue(outputs.contains("Would P1 like to sponsor the quest Q2? Yes/No"));
+        assertTrue(outputs.contains("Would P2 like to sponsor the quest Q2? Yes/No"));
+        assertTrue(outputs.contains("Would P3 like to sponsor the quest Q2? Yes/No"));
+        assertTrue(outputs.contains("Would P4 like to sponsor the quest Q2? Yes/No"));
+    }
+
+    @Test
+    @DisplayName("Check If the sponsored player is found when player accepts")
+    public void RESP_09_test_04() {
+        Game game = new Game();
+        game.shuffleAdventureDeck();
+        game.dealInitialAdventureCards();
+
+        ArrayList<String> commands = new ArrayList<>();
+        Collections.addAll(commands, "No", "No", "Yes");
+        game.setCommands(commands);
+
+        Player player1 = game.getPlayer(1);
+        Player currSponsor = game.findQuestSponsor(2, player1);
+
+        assertNotNull(currSponsor);
+        assertEquals(3, currSponsor.getId());
     }
 }

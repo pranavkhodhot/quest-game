@@ -224,6 +224,10 @@ public class Game {
         }
     }
 
+    public Player findQuestSponsor(int questStages, Player currentPlayer) {
+        return null;
+    }
+
     public List<String> getOutputs() {
         return outputs;
     }
