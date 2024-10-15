@@ -270,4 +270,8 @@ public class Game {
     public Card getDrawnCard() {
         return drawnCard;
     }
+
+    public void startGame(Deck mockEventDeck, Deck mockAdventureDeck){
+
+    }
 }

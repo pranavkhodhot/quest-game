@@ -1075,4 +1075,49 @@ public class MainTest {
         quest.finishQuest(new ArrayList<>());
         assertEquals(100-7,game.getAdventureDeck().getDeckSize());
     }
+    /*------------------------------------RESP-21-----------------------------------------------------------------*/
+    @Test
+    @DisplayName("Check that after each turn the game checks if any player has 7 or more shields")
+    public void RESP_21_test_01() {
+        Game game = new Game();
+        Deck mockEventDeck = new Deck();
+        mockEventDeck.addCard(new Card(Card.CardType.EVENT, "Plague", 0));
+
+        game.getPlayer(2).setSheilds(7);
+
+        ArrayList<String> commands = new ArrayList<>();
+        Collections.addAll(commands,"Enter","End Turn");
+        game.setCommands(commands);
+
+        game.startGame(mockEventDeck,null);
+
+        List<String> outputs = game.getOutputs();
+
+        assertTrue(outputs.contains("Congratulations to P2 for being Knighted!"));
+    }
+
+    @Test
+    @DisplayName("Check that is there are multiple winners the game will display all winners")
+    public void RESP_21_test_02() {
+        Game game = new Game();
+        Deck mockEventDeck = new Deck();
+        mockEventDeck.addCard(new Card(Card.CardType.EVENT, "Plague", 0));
+
+        game.getPlayer(2).setSheilds(7);
+        game.getPlayer(3).setSheilds(7);
+        game.getPlayer(4).setSheilds(7);
+
+
+        ArrayList<String> commands = new ArrayList<>();
+        Collections.addAll(commands,"Enter","End Turn");
+        game.setCommands(commands);
+
+        game.startGame(mockEventDeck,null);
+
+        List<String> outputs = game.getOutputs();
+
+        assertTrue(outputs.contains("Congratulations to P2 for being Knighted!"));
+        assertTrue(outputs.contains("Congratulations to P3 for being Knighted!"));
+        assertTrue(outputs.contains("Congratulations to P4 for being Knighted!"));
+    }
 }
