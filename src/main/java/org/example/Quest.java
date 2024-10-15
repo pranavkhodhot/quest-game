@@ -243,6 +243,17 @@ public class Quest {
     }
 
     public void finishQuest(List<Player> successfulPlayers) {
+        if (successfulPlayers.isEmpty()) {
+            game.logAndPrint("The quest has failed as all participants have been eliminated.");
+        } else {
+            game.logAndPrint("The quest has been completed successfully!");
+            for(int i=0;i<successfulPlayers.size();i++){
+                successfulPlayers.get(i).setSheilds(successfulPlayers.get(i).getSheilds()+stages);
+            }
+        }
+        int numStageCards = stageCards.size();
 
+        game.logAndPrint("Sponsor will now regain Cards, Press [ENTER] to begin card redraw");
+        String out = game.getNextCommandOrInput();
     }
 }
