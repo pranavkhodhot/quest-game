@@ -111,4 +111,7 @@ public class Player {
         }
         return numFoeCards >= stages;
     }
+    public boolean isWinner(){
+        return sheilds >= 7;
+    }
 }

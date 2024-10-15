@@ -271,7 +271,42 @@ public class Game {
         return drawnCard;
     }
 
-    public void startGame(Deck mockEventDeck, Deck mockAdventureDeck){
+    private void announceWinners(List<Player> winners) {
+        for (Player winner : winners) {
+            logAndPrint("Congratulations to P" + winner.getId() + " for being Knighted!");
+        }
+    }
 
+    public List<Player> checkWinner(){
+        List<Player> winners = new ArrayList<>();
+        for(int i=0;i<players.size();i++){
+            if(players.get(i).isWinner()){
+                winners.add(players.get(i));
+            }
+        }
+        return winners;
+    }
+
+    public void startGame(Deck mockEventDeck, Deck mockAdventureDeck){
+        this.shuffleAdventureDeck();
+        this.shuffleEventDeck();
+        dealInitialAdventureCards();
+        if(mockEventDeck != null){
+            eventDeck = mockEventDeck;
+        }
+        if(mockAdventureDeck != null){
+            adventureDeck = mockAdventureDeck;
+        }
+        while (true) {
+            currPlayer = getNextPlayer(counter);
+            processPlayerTurn(currPlayer);
+            List<Player> winners = checkWinner();
+            if (!winners.isEmpty()) {
+                announceWinners(winners);
+                break;
+            }
+            clearScreen();
+        }
+        System.out.println("The game has reached its conclusion");
     }
 }
