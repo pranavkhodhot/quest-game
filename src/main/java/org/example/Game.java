@@ -216,6 +216,11 @@ public class Game {
             case "Queens Favor":
                 dealAdventureCards(2, currPlayer.getId());
                 break;
+            case "Prosperity":
+                for (Player player : players) {
+                    dealAdventureCards(2, player.getId());
+                }
+                break;
         }
     }
 
