@@ -1,0 +1,246 @@
+/* General Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+svg {
+  width: 50px;
+}
+
+body {
+  background-color: #f4f4f9;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+}
+
+#current-player-header {
+  padding-top: 15px;
+  text-align: center;
+}
+
+#shields {
+  margin-bottom: 30px;
+}
+
+header {
+  color: white;
+  text-align: center;
+  padding: 20px 10px;
+}
+
+header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+header p {
+  font-size: 1.2rem;
+}
+
+main {
+  flex: 1;
+}
+
+
+.stat-header {
+  margin-bottom: 20px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px; 
+    padding: 5px;
+    max-width: 600px;
+    margin: 0 auto; 
+}
+
+.stat-container {
+  padding: 5px;
+  max-width: 600px;
+  margin: 0 auto; 
+}
+
+.card {
+  width: 120%;
+  margin: 5px auto;
+  padding: 10px;
+  border: 3px solid #333;
+  border-radius: 15px;
+  background-color: #f9f9f9; 
+  color: #111; 
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  line-height: 1.6;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+  text-align: center; 
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.drawn-card {
+  width: 80%;
+}
+
+.card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+#start-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #8BC6EC;
+  background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);
+
+}
+
+#start-screen button {
+  background-color: #6200ea;
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s;
+}
+
+#start-screen button:hover {
+  background-color: #3700b3;
+}
+
+/* Main Game Screen */
+#game-screen {
+  display: none; /* Initially hidden */
+}
+
+#game-area {
+  display: none;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Player Info */
+.player-info {
+  flex: 1;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  justify-content: center;
+}
+
+.player-info h2 {
+  border-bottom: 2px solid #6200ea;
+  margin-bottom: 15px;
+  padding-bottom: 5px;
+  text-align: center;
+}
+
+.player-stats {
+  font-size: 1rem;
+  line-height: 1.8;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Actions */
+#actions {
+  flex: 1;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+}
+
+#actions h2 {
+  border-bottom: 2px solid #6200ea;
+  margin-bottom: 15px;
+  padding-bottom: 5px;
+}
+
+#actions button {
+  background-color: #6200ea;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+#actions button:hover {
+  background-color: #3700b3;
+}
+
+/* Game Log */
+#log {
+  margin-bottom: 30px;
+}
+#log h2 {
+  border-bottom: 2px solid #6200ea;
+  margin-bottom: 15px;
+  padding-bottom: 5px;
+}
+
+#log-messages {
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+#log-messages div {
+  margin-bottom: 10px;
+}
+
+.input-bar-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
+    flex-direction: column;
+}
+
+.input-bar {
+    width: 300px;
+    padding: 10px 15px;
+    border: 2px solid #ccc;
+    border-radius: 25px;
+    font-size: 16px;
+    outline: none;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+}
+
+.input-bar:focus {
+    border-color: #4CAF50;
+    box-shadow: 0 0 5px rgba(76, 100, 80, 0.8);
+}
+
+.input-button:hover {
+    background-color: #6200ea;
+}
+
+/* Footer */
+footer {
+  background-color: #6200ea;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  font-size: 0.9rem;
+}
