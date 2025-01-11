@@ -36,7 +36,7 @@ Follow these steps to set up and run the Quest Game locally:
 ### 2. Frontend Setup
 1. Navigate to the `frontend` directory:
    ```bash
-   cd backend
+   cd frontend
    ```
 2. Run the folllowing command to install required node modules
    ```bash
