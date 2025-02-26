@@ -6,7 +6,7 @@
   font-family: Arial, sans-serif;
 }
 
-svg {
+img {
   width: 50px;
 }
 
@@ -84,7 +84,8 @@ main {
 }
 
 .drawn-card {
-  width: 80%;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 .card:hover {
@@ -92,7 +93,7 @@ main {
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
 }
 
-#start-screen {
+.start-screen {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -103,7 +104,7 @@ main {
 
 }
 
-#start-screen button {
+.start-screen button {
   background-color: #6200ea;
   color: white;
   border: none;
@@ -115,17 +116,13 @@ main {
   transition: background-color 0.3s;
 }
 
-#start-screen button:hover {
+.start-screen button:hover {
   background-color: #3700b3;
 }
 
 /* Main Game Screen */
-#game-screen {
-  display: none; /* Initially hidden */
-}
-
-#game-area {
-  display: none;
+.game-area {
+  display: flex;
   justify-content: space-between;
   gap: 20px;
   padding: 20px;

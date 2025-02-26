@@ -1,19 +1,19 @@
 import { Builder, By, until, Select } from 'selenium-webdriver';
-const delayTime = 100
 async function A1_scenerio() {
     let driver = await new Builder().forBrowser('chrome').build();
     try {
         console.log("A1_scenerio")
-        await driver.get('http://localhost:8081');
+        await driver.get('http://localhost:5173');
         await driver.manage().window().maximize();
 
         let startButton = await driver.findElement(By.xpath("//button[contains(text(), 'Start Game')]"));
-        let inputBar = await driver.findElement(By.id('input-bar'));
-        let inputButton = await driver.findElement(By.id('enter-input-btn'));
         let selectScenerio = await driver.findElement(By.id("scenerios"));
         let select = new Select(selectScenerio);
-        await select.selectByVisibleText('A1_scenerio');
+        await select.selectByVisibleText('A1_scenario');
         await startButton.click();
+        await driver.sleep(2000)
+        let inputBar = await driver.findElement(By.id('input-bar'));
+        let inputButton = await driver.findElement(By.id('enter-input-btn'));
 
         //P1 Drawing Q4 and P2 Accepting Sponsorship
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"Draw")
@@ -46,7 +46,7 @@ async function A1_scenerio() {
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"5")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"5")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"Quit")
-        await driver.sleep(delayTime)
+        await driver.sleep(100)
         await inputButton.click()
 
         //P3 Trimming and Building Attack for Stage 1
@@ -54,7 +54,7 @@ async function A1_scenerio() {
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"5")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"4")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"Quit")
-        await driver.sleep(delayTime)
+        await driver.sleep(100)
         await inputButton.click()
 
         //P4 Trimming and Building Attack for Stage 1
@@ -62,7 +62,7 @@ async function A1_scenerio() {
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"4")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"6")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"Quit")
-        await driver.sleep(delayTime)
+        await driver.sleep(100)
         await inputButton.click()
 
         //P1,P3,P4 Accepting Stage 2
@@ -74,14 +74,14 @@ async function A1_scenerio() {
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"7")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"6")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"Quit")
-        await driver.sleep(delayTime)
+        await driver.sleep(100)
         await inputButton.click()
 
         //P3 Building Attack for Stage 2
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"9")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"6")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"Quit")
-        await driver.sleep(delayTime)
+        await driver.sleep(100)
         await inputButton.click()
 
 
@@ -89,7 +89,7 @@ async function A1_scenerio() {
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"6")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"6")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"Quit")
-        await driver.sleep(delayTime)
+        await driver.sleep(100)
         await inputButton.click()
 
         //P3,P4 Accepting Stage 3
@@ -101,7 +101,7 @@ async function A1_scenerio() {
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"7")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"5")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"Quit")
-        await driver.sleep(delayTime)
+        await driver.sleep(100)
         await inputButton.click()
 
         //P4 Building Attack for Stage 3
@@ -109,7 +109,7 @@ async function A1_scenerio() {
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"6")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"7")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"Quit")
-        await driver.sleep(delayTime)
+        await driver.sleep(100)
         await inputButton.click()
 
         //P3,P4 Accepting Stage 4
@@ -121,7 +121,7 @@ async function A1_scenerio() {
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"6")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"6")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"Quit")
-        await driver.sleep(delayTime)
+        await driver.sleep(100)
         await inputButton.click()
 
         //P4 Building Attack for Stage 3
@@ -130,7 +130,7 @@ async function A1_scenerio() {
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"4")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"5")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"Quit")
-        await driver.sleep(delayTime)
+        await driver.sleep(100)
         await inputButton.click()
 
         await inputButton.click()
@@ -174,16 +174,17 @@ async function two_winner_game_two_winner_quest() {
     let driver = await new Builder().forBrowser('chrome').build();
     try {
         console.log("2_winner_game_2_winner_quest")
-        await driver.get('http://localhost:8081');
+        await driver.get('http://localhost:5173');
         await driver.manage().window().maximize();
 
         let startButton = await driver.findElement(By.xpath("//button[contains(text(), 'Start Game')]"));
-        let inputBar = await driver.findElement(By.id('input-bar'));
-        let inputButton = await driver.findElement(By.id('enter-input-btn'));
         let selectScenerio = await driver.findElement(By.id("scenerios"));
         let select = new Select(selectScenerio);
         await select.selectByVisibleText('2_winner');
         await startButton.click();
+        await driver.sleep(2000)
+        let inputBar = await driver.findElement(By.id('input-bar'));
+        let inputButton = await driver.findElement(By.id('enter-input-btn'));
 
         //P1 Drawing Q4 and P2 Accepting Sponsorship
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"Draw")
@@ -212,20 +213,20 @@ async function two_winner_game_two_winner_quest() {
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"1")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"6")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"Quit")
-        await driver.sleep(delayTime)
+        await driver.sleep(100)
         await inputButton.click()
 
         //P3 Trimming and Building Attack for Stage 1
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"1")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"Quit")
-        await driver.sleep(delayTime)
+        await driver.sleep(100)
         await inputButton.click()
 
         //P4 Trimming and Building Attack for Stage 1
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"1")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"6")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"Quit")
-        await driver.sleep(delayTime)
+        await driver.sleep(100)
         await inputButton.click()
 
         //P2,P4 Accepting Stage 2
@@ -235,13 +236,13 @@ async function two_winner_game_two_winner_quest() {
         //P2 Building Attack for Stage 2
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"4")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"Quit")
-        await driver.sleep(delayTime)
+        await driver.sleep(100)
         await inputButton.click()
 
         //P4 Building Attack for Stage 2
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"4")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"Quit")
-        await driver.sleep(delayTime)
+        await driver.sleep(100)
         await inputButton.click()
 
         //P2,P4 Accepting Stage 3
@@ -252,14 +253,14 @@ async function two_winner_game_two_winner_quest() {
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"7")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"6")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"Quit")
-        await driver.sleep(delayTime)
+        await driver.sleep(100)
         await inputButton.click()
 
         //P4 Building Attack for Stage 3
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"7")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"6")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"Quit")
-        await driver.sleep(delayTime)
+        await driver.sleep(100)
         await inputButton.click()
 
         //P3,P4 Accepting Stage 4
@@ -270,14 +271,14 @@ async function two_winner_game_two_winner_quest() {
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"6")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"6")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"Quit")
-        await driver.sleep(delayTime)
+        await driver.sleep(100)
         await inputButton.click()
 
         //P4 Building Attack for Stage 4
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"6")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"6")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"Quit")
-        await driver.sleep(delayTime)
+        await driver.sleep(100)
         await inputButton.click()
 
         //P1 Redraw
@@ -286,7 +287,7 @@ async function two_winner_game_two_winner_quest() {
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"1")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"1")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"1")
-        await driver.sleep(delayTime)
+        await driver.sleep(100)
         //await inputButton.click()
 
 
@@ -314,13 +315,13 @@ async function two_winner_game_two_winner_quest() {
         //P2 Building Attack for Stage 1
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"6")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"Quit")
-        await driver.sleep(delayTime)
+        await driver.sleep(100)
         await inputButton.click()
 
         //P4 Building Attack for Stage 1
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"6")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"Quit")
-        await driver.sleep(delayTime)
+        await driver.sleep(100)
         await inputButton.click()
 
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"Yes")
@@ -329,13 +330,13 @@ async function two_winner_game_two_winner_quest() {
         //P2 Building Attack for Stage 1
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"7")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"Quit")
-        await driver.sleep(delayTime)
+        await driver.sleep(100)
         await inputButton.click()
 
         //P4 Building Attack for Stage 1
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"7")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"Quit")
-        await driver.sleep(delayTime)
+        await driver.sleep(100)
         await inputButton.click()
 
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"Yes")
@@ -344,13 +345,13 @@ async function two_winner_game_two_winner_quest() {
         //P2 Building Attack for Stage 3
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"10")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"Quit")
-        await driver.sleep(delayTime)
+        await driver.sleep(100)
         await inputButton.click()
 
         //P4 Building Attack for Stage 3
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"10")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"Quit")
-        await driver.sleep(delayTime)
+        await driver.sleep(100)
         await inputButton.click()
 
         //P3 Redraw
@@ -401,16 +402,18 @@ async function one_winner_game_with_events() {
     let driver = await new Builder().forBrowser('chrome').build();
     try {
         console.log("1_winner_game_with_events")
-        await driver.get('http://localhost:8081');
+        await driver.get('http://localhost:5173');
         await driver.manage().window().maximize();
 
         let startButton = await driver.findElement(By.xpath("//button[contains(text(), 'Start Game')]"));
-        let inputBar = await driver.findElement(By.id('input-bar'));
-        let inputButton = await driver.findElement(By.id('enter-input-btn'));
         let selectScenerio = await driver.findElement(By.id("scenerios"));
         let select = new Select(selectScenerio);
         await select.selectByVisibleText('1_winner');
         await startButton.click();
+        await driver.sleep(2000)
+        let inputBar = await driver.findElement(By.id('input-bar'));
+        let inputButton = await driver.findElement(By.id('enter-input-btn'));
+
 
         //P1 Drawing Q4 and P2 Accepting Sponsorship
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"Draw")
@@ -436,21 +439,21 @@ async function one_winner_game_with_events() {
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"1")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"3")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"Quit")
-        await driver.sleep(delayTime)
+        await driver.sleep(100)
         await inputButton.click()
 
         //P3 Trimming and Building Attack for Stage 1
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"1")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"3")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"Quit")
-        await driver.sleep(delayTime)
+        await driver.sleep(100)
         await inputButton.click()
 
         //P4 Trimming and Building Attack for Stage 1
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"1")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"4")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"Quit")
-        await driver.sleep(delayTime)
+        await driver.sleep(100)
         await inputButton.click()
 
         //P2,P3,P4 Accepting Stage 2
@@ -462,19 +465,19 @@ async function one_winner_game_with_events() {
         //P2 Building Attack for Stage 2
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"6")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"Quit")
-        await driver.sleep(delayTime)
+        await driver.sleep(100)
         await inputButton.click()
 
         //P3 Building Attack for Stage 2
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"6")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"Quit")
-        await driver.sleep(delayTime)
+        await driver.sleep(100)
         await inputButton.click()
 
         //P4 Building Attack for Stage 2
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"7")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"Quit")
-        await driver.sleep(delayTime)
+        await driver.sleep(100)
         await inputButton.click()
 
         //P2,P3,P4 Accepting Stage 3
@@ -486,19 +489,19 @@ async function one_winner_game_with_events() {
         //P2 Building Attack for Stage 3
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"8")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"Quit")
-        await driver.sleep(delayTime)
+        await driver.sleep(100)
         await inputButton.click()
 
         //P3 Building Attack for Stage 3
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"8")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"Quit")
-        await driver.sleep(delayTime)
+        await driver.sleep(100)
         await inputButton.click()
 
         //P4 Building Attack for Stage 3
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"9")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"Quit")
-        await driver.sleep(delayTime)
+        await driver.sleep(100)
         await inputButton.click()
 
         //P2,P3,P4 Accepting Stage 4
@@ -510,19 +513,19 @@ async function one_winner_game_with_events() {
         //P2 Building Attack for Stage 4
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"10")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"Quit")
-        await driver.sleep(delayTime)
+        await driver.sleep(100)
         await inputButton.click()
 
         //P3 Building Attack for Stage 4
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"10")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"Quit")
-        await driver.sleep(delayTime)
+        await driver.sleep(100)
         await inputButton.click()
 
         //P4 Building Attack for Stage 4
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"11")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"Quit")
-        await driver.sleep(delayTime)
+        await driver.sleep(100)
         await inputButton.click()
 
         //P1 Redraw
@@ -531,7 +534,7 @@ async function one_winner_game_with_events() {
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"1")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"2")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"2")
-        await driver.sleep(delayTime)
+        await driver.sleep(100)
         //await inputButton.click()
 
 
@@ -562,7 +565,7 @@ async function one_winner_game_with_events() {
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"4")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"6")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"Quit")
-        await driver.sleep(delayTime)
+        await driver.sleep(100)
         await inputButton.click()
 
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"Yes")
@@ -574,21 +577,21 @@ async function one_winner_game_with_events() {
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"1")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"9")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"Quit")
-        await driver.sleep(delayTime)
+        await driver.sleep(100)
         await inputButton.click()
 
         //P3 Building Attack for Stage 1
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"1")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"9")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"Quit")
-        await driver.sleep(delayTime)
+        await driver.sleep(100)
         await inputButton.click()
 
         //P4 Building Attack for Stage 1
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"1")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"10")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"Quit")
-        await driver.sleep(delayTime)
+        await driver.sleep(100)
         await inputButton.click()
 
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"Yes")
@@ -598,14 +601,14 @@ async function one_winner_game_with_events() {
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"10")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"8")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"Quit")
-        await driver.sleep(delayTime)
+        await driver.sleep(100)
         await inputButton.click()
 
         //P3 Building Attack for Stage 2
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"10")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"5")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"Quit")
-        await driver.sleep(delayTime)
+        await driver.sleep(100)
         await inputButton.click()
 
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"Yes")
@@ -615,13 +618,13 @@ async function one_winner_game_with_events() {
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"10")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"5")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"Quit")
-        await driver.sleep(delayTime)
+        await driver.sleep(100)
         await inputButton.click()
 
         //P3 Building Attack for Stage 3
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"11")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"Quit")
-        await driver.sleep(delayTime)
+        await driver.sleep(100)
         await inputButton.click()
 
         await inputButton.click()
@@ -669,16 +672,17 @@ async function zero_winner_quest() {
     let driver = await new Builder().forBrowser('chrome').build();
     try {
         console.log("0_winner_quest")
-        await driver.get('http://localhost:8081');
+        await driver.get('http://localhost:5173');
         await driver.manage().window().maximize();
 
         let startButton = await driver.findElement(By.xpath("//button[contains(text(), 'Start Game')]"));
-        let inputBar = await driver.findElement(By.id('input-bar'));
-        let inputButton = await driver.findElement(By.id('enter-input-btn'));
         let selectScenerio = await driver.findElement(By.id("scenerios"));
         let select = new Select(selectScenerio);
         await select.selectByVisibleText('0_winner');
         await startButton.click();
+        await driver.sleep(2000)
+        let inputBar = await driver.findElement(By.id('input-bar'));
+        let inputButton = await driver.findElement(By.id('enter-input-btn'));
 
         //P1 Drawing Q4 and P2 Accepting Sponsorship
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"Draw")
@@ -710,19 +714,19 @@ async function zero_winner_quest() {
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"1")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"12")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"Quit")
-        await driver.sleep(delayTime)
+        await driver.sleep(100)
         await inputButton.click()
 
         //P3 Trimming and Building Attack for Stage 1
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"4")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"Quit")
-        await driver.sleep(delayTime)
+        await driver.sleep(100)
         await inputButton.click()
 
         //P4 Trimming and Building Attack for Stage 1
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"3")
         await typeAndSubmitAnswer(driver,inputBar,inputButton,"Quit")
-        await driver.sleep(delayTime)
+        await driver.sleep(100)
         await inputButton.click()
 
 
@@ -762,9 +766,9 @@ async function zero_winner_quest() {
 }
 
 async function typeAndSubmitAnswer(driver,inputBar,submitButton,answer) {
-    await driver.sleep(delayTime)
+    await driver.sleep(100)
     await inputBar.sendKeys(answer)
-    await driver.sleep(delayTime)
+    await driver.sleep(100)
     await submitButton.click()
 }
 
