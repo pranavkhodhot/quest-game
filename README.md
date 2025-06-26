@@ -1,5 +1,7 @@
 # Quest Game 🗡️🛡️
 
+<img width="1274" alt="Screenshot 2025-01-11 at 1 39 55 PM" src="https://github.com/user-attachments/assets/167debfe-a2ef-4a4d-b3b9-fd0362fae264" />
+
 A fun and interactive **Quest Game** with a **Java + Spring Boot backend** and a **React + TypeScript frontend**, designed to provide an engaging user experience. This project showcases my skills in full-stack development.
 
 ---
@@ -74,4 +76,4 @@ Follow these steps to set up and run the Quest Game locally:
    ```bash
    node tests.js
    ```
-<img width="1274" alt="Screenshot 2025-01-11 at 1 39 55 PM" src="https://github.com/user-attachments/assets/167debfe-a2ef-4a4d-b3b9-fd0362fae264" />
+
